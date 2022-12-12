@@ -21,4 +21,6 @@ https://www.shuzhiduo.com/A/kjdwD7oGzN/
 64位机器安装oracle环境
 https://blog.csdn.net/qq_49122165/article/details/125660284
 
+
+
 当你新导入依赖后到lib文件夹下执行 pip3 freeze > requirements.txt
