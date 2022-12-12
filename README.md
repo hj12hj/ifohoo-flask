@@ -17,3 +17,6 @@ https://blog.csdn.net/qq_49122165/article/details/125660284
 
 centos服务器安装 python3.9
 https://www.cnblogs.com/rainbow-tan/p/16330525.html
+
+python 加密部署
+https://blog.csdn.net/Disany/article/details/124505304
