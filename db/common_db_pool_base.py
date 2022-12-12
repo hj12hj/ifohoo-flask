@@ -35,7 +35,7 @@ class CommonDbPoolBase(metaclass=abc.ABCMeta):
     def is_connection(self):
         is_connection = False
         try:
-            self.get_connection().cursor().execute("SELECT 1")
+            self.get_connection().cursor().execute("select 1 from dual")
             is_connection = True
         except Exception as e:
             print(e)

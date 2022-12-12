@@ -1,6 +1,7 @@
 from registry.nacos_registry import NacosRegistry
 from config import configContent
 from netifaces import interfaces, ifaddresses, AF_INET
+from flask import current_app
 
 addresses = []
 local_ip = "127.0.0.1"
@@ -18,6 +19,10 @@ applicationConfig = configContent.get("application")
 port = applicationConfig.get("port")
 dataId = nacosConfig.get("dataId")
 
+print("Star register Server")
+print("nacos_config is ----->>>>  " + str(nacosConfig))
+print("local_server_config_is ---->>>> " + str(applicationConfig))
+
 applicationIp = applicationConfig.get("ip")
 if applicationIp is None or applicationIp == "127.0.0.1":
     applicationIp = local_ip
@@ -29,6 +34,10 @@ registry = NacosRegistry(**nacosConfig,
 # 注册服务
 registry.register()
 
+print("Register Server Successful")
+
+
 # 获取配置中心配置
 config = registry.get_config(data_id=dataId)
 
+print("pull Config from center is ---->>>> " + str(config) )

@@ -9,7 +9,7 @@ class UserSql:
 
     @handle_time_format
     def get_users(self):
-        return self.db.query_all("select * from user")
+        return self.db.query_all("select * from test")
 
     def insert_user(self):
         self.db.execute_sql("insert into user (user_id, user_name) values (%s,%s)",
