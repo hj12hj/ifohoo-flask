@@ -1,7 +1,7 @@
-from registry.nacos_registry import NacosRegistry
-from config import configContent
 from netifaces import interfaces, ifaddresses, AF_INET
-from flask import current_app
+
+from config import configContent
+from registry.nacos_registry import NacosRegistry
 
 addresses = []
 local_ip = "127.0.0.1"
@@ -37,7 +37,14 @@ registry.register()
 print("Register Server Successful")
 
 
-# 获取配置中心配置
+# 获取配置中心配置 todo 配置中心配置应该覆盖本地的配置
 config = registry.get_config(data_id=dataId)
+if  config is not None:
+    remote_applicationConfig = config.get("application")
+    remote_port = config.get("port")
+
+    if remote_applicationConfig is not None:
+        applicationConfig = remote_applicationConfig
+        port = applicationConfig.get("port")
 
 print("pull Config from center is ---->>>> " + str(config) )

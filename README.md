@@ -20,3 +20,10 @@ https://www.cnblogs.com/rainbow-tan/p/16330525.html
 
 python 加密部署
 https://blog.csdn.net/Disany/article/details/124505304
+
+
+如何打包:
+pip3 install pyarmor
+pyarmor obfuscate --recursive app.py
+项目打包到disk目录下
+将application.yaml复制到dist目录下
