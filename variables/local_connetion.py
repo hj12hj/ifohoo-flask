@@ -73,8 +73,8 @@ def create_local_connect(app):
         if params is not None:
             if request.method == "GET":
                 try:
-                    local_page_info.pageNum = params.get("pageNum")
-                    local_page_info.pageSize = params.get("pageSize")
+                    local_page_info.pageNum = int(params.get("pageNum"))
+                    local_page_info.pageSize = int(params.get("pageSize"))
                     app.logger.info("拦截到分页请求 pageNum = " + str(local_page_info.pageNum) + " pageSize = " + str(
                         local_page_info.pageSize))
                 except Exception as e:
