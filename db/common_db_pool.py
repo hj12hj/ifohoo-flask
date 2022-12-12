@@ -75,15 +75,15 @@ class CommonDbPool(CommonDbPoolBase):
 
         match = re.match(".*(from.*)", sql)
         if match is None:
-            raise Exception("分页查询 error")
+            raise Exception("分页查询拦截sql语句出错")
         else:
             all_sql = "select count(*)  " + match.group(1)
         if self.db_type == "mysql":
             all_count = cursor.execute(all_sql)
-            current_app.logger.info(all_sql)
+            current_app.logger.info("mysql分页查询所有数据" + all_sql)
             limit_sql = sql + " limit " + str((page_num - 1) * page_size) + "," + str(page_size)
             current_app.logger.info(limit_sql)
-            cursor.execute(limit_sql)
+            cursor.execute("mysql分页查询分页数据" + limit_sql)
             fetch_data = cursor.fetchall()
             fields = [tup[0] for tup in cursor.description]
             return all_count, [dict(zip(fields, row)) for row in fetch_data]
@@ -92,7 +92,7 @@ class CommonDbPool(CommonDbPoolBase):
         elif self.db_type == "dm":
             pass
         else:
-            raise Exception("分页查询 Error")
+            raise Exception("分页查询不支持数据库类型！！！")
 
     # 执行单个sql insert update delete
     def execute_sql(self, sql, data=None):
