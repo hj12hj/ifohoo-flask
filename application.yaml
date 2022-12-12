@@ -1,6 +1,6 @@
 #nacos注册中心配置
 nacos:
-  serverAddr: 127.0.0.1:8848
+  serverAddr: 10.7.31.9:8848
   namespace: public
   username: nacos
   password: nacos
@@ -16,7 +16,7 @@ application:
 
 #配置名称跟代码对应的
 dbInfo:
-  dbType: mysql
+  dbType: dm
 
   mysql:
     host: 127.0.0.1
@@ -26,9 +26,10 @@ dbInfo:
     db: test
     charset: utf8
 
+  #  密码字符串
   oracle:
     user: hj
-    password: 123456
+    password: '123456'
     encoding: utf8
     dsn: 106.15.194.243:1521/helowin
 

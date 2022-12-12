@@ -1,3 +1,4 @@
+import logging
 import threading
 
 from flask import request, current_app
@@ -10,8 +11,43 @@ from variables.local_token import local_token
 local_connect = threading.local()
 
 
+# def logger_config():
+#     # 添加控制台handler，用于输出日志到控制台
+#     console_handler = logging.StreamHandler()
+#     # 添加日志文件handler，用于输出日志到文件中
+#     file_handler = logging.FileHandler(filename='log.log', encoding='UTF-8')
+#     # 设置格式并赋予handler
+#     formatter = logging.Formatter(
+#         "%(asctime)s %(name)s:%(levelname)s:%(message)s   in files %(filename)s: lines %(lineno)s")
+#     file_handler.setFormatter(formatter)
+#     console_handler.setFormatter(formatter)
+#     # 将handler添加到日志器中
+#     app.logger.addHandler(file_handler)
+#     # app.logger.addHandler(console_handler)
+#     app.logger.setLevel(logging.DEBUG)
+#     app.logger.removeHandler(default_handler)
+#     default_handler.setFormatter(formatter)
+
+
 # 本地数据库连接保存用于注解事务
 def create_local_connect(app):
+    """
+       flask log
+    """
+    # 添加控制台handler，用于输出日志到控制台
+    console_handler = logging.StreamHandler()
+    # 添加日志文件handler，用于输出日志到文件中
+    file_handler = logging.FileHandler(filename='log.log', encoding='UTF-8')
+    # 设置格式并赋予handler
+    formatter = logging.Formatter(
+        "%(asctime)s %(name)s:%(levelname)s:%(message)s   in files %(filename)s: lines %(lineno)s")
+    file_handler.setFormatter(formatter)
+    console_handler.setFormatter(formatter)
+    # 将handler添加到日志器中
+    app.logger.addHandler(file_handler)
+    # app.logger.addHandler(console_handler)
+    app.logger.setLevel(logging.DEBUG)
+
     @app.before_request
     def before_request():
         # 验证token
@@ -21,6 +57,7 @@ def create_local_connect(app):
         info = redisutils.get_by_key(token)
         if info is None:
             raise IfmsHttpException("token无效", 401)
+
         # 绑定线程变量
         from variables.db_connection import db
         conn = db.get_connection()
@@ -38,17 +75,19 @@ def create_local_connect(app):
                 try:
                     local_page_info.pageNum = params.get("pageNum")
                     local_page_info.pageSize = params.get("pageSize")
+                    app.logger.info("拦截到分页请求 pageNum = " + str(local_page_info.pageNum) + " pageSize = " + str(
+                        local_page_info.pageSize))
                 except Exception as e:
                     pass
 
     # 这里归还数据库连接池
-    @app.after_request
-    def after_request(response):
+    @app.teardown_request
+    def after_request(request):
         is_has = False
         try:
             local_connect.__getattribute__("conn")
             is_has = True
-        except Exception:
+        except Exception as e:
             is_has = False
         if is_has:
             local_connect.conn.close()
@@ -56,7 +95,7 @@ def create_local_connect(app):
             local_connect.conn = None
             local_connect.cursor = None
 
-        return response
+
 
     @app.errorhandler(Exception)
     def server_error(e):

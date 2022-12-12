@@ -1,3 +1,5 @@
+下载项目后 进入 lib 文件夹下 执行 pip3 install -r requirements.txt 安装依赖
+[]: # Title: README
 当你新导入依赖后到lib文件夹下执行 pip3 freeze > requirements.txt
 
 当客户无外网部署时候
@@ -16,7 +18,6 @@ https://cloud.tencent.com/developer/article/1912401
 python oracle 执行结果返回对象
 http://t.zoukankan.com/dhanchor-p-11111247.html
 https://www.shuzhiduo.com/A/kjdwD7oGzN/
-
 
 64位机器安装oracle环境
 https://blog.csdn.net/qq_49122165/article/details/125660284

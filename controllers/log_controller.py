@@ -24,7 +24,7 @@ log = Blueprint("log", __name__)
 @handle_web_result
 def testGet(**kwargs):
     list = userService.get_all()
-    userService.insert_user()
+    # userService.insert_user()
     return ReturnMessage(data=list)
 
 
