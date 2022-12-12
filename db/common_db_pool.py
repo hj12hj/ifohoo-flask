@@ -29,11 +29,14 @@ class CommonDbPool(CommonDbPoolBase):
     # 查询所有结果
     def query_all(self, sql, data=None):
         current_app.logger.info("查询多个结果 sql --> " + sql)
+        current_app.logger.info("data --> " + str(data))
         conn = local_connect.conn
         cursor = conn.cursor()
         if data is None:
             cursor.execute(sql)
         else:
+            if self.db_type == "mysql":
+                sql = re.sub(":\d", "%s", sql)
             cursor.execute(sql, data)
         fetch_data = cursor.fetchall()
         fields = [tup[0] for tup in cursor.description]
@@ -51,6 +54,8 @@ class CommonDbPool(CommonDbPoolBase):
         if data is None:
             cursor.execute(sql)
         else:
+            if self.db_type == "mysql":
+                sql = re.sub(":\d", "%s", sql)
             cursor.execute(sql, data)
         fetch_data = cursor.fetchmany(num)
         fields = [tup[0] for tup in cursor.description]
@@ -72,27 +77,44 @@ class CommonDbPool(CommonDbPoolBase):
             page_num = local_page_info.pageNum
         except Exception:
             pass
-
         match = re.match(".*(from.*)", sql)
         if match is None:
             raise Exception("分页查询拦截sql语句出错")
         else:
             all_sql = "select count(*)  " + match.group(1)
-        if self.db_type == "mysql":
-            all_count = cursor.execute(all_sql)
-            current_app.logger.info("mysql分页查询所有数据" + all_sql)
-            limit_sql = sql + " limit " + str((page_num - 1) * page_size) + "," + str(page_size)
-            current_app.logger.info(limit_sql)
-            cursor.execute("mysql分页查询分页数据" + limit_sql)
-            fetch_data = cursor.fetchall()
-            fields = [tup[0] for tup in cursor.description]
-            return all_count, [dict(zip(fields, row)) for row in fetch_data]
-        elif self.db_type == "oracle":
-            pass
-        elif self.db_type == "dm":
-            pass
+        if data is None:
+            if self.db_type == "mysql":
+                all_count = cursor.execute(all_sql)
+                current_app.logger.info("mysql分页查询所有数据" + all_sql)
+                limit_sql = sql + " limit " + str((page_num - 1) * page_size) + "," + str(page_size)
+                cursor.execute(limit_sql)
+                current_app.logger.info("mysql分页查询分页数据" + limit_sql)
+                fetch_data = cursor.fetchall()
+                fields = [tup[0] for tup in cursor.description]
+                return all_count, [dict(zip(fields, row)) for row in fetch_data]
+            elif self.db_type == "oracle":
+                pass
+            elif self.db_type == "dm":
+                pass
+            else:
+                raise Exception("分页查询不支持数据库类型！！！")
         else:
-            raise Exception("分页查询不支持数据库类型！！！")
+            if self.db_type == "mysql":
+                sql = re.sub(":\d", "%s", sql)
+                all_count = cursor.execute(all_sql, data)
+                current_app.logger.info("mysql分页查询所有数据" + all_sql)
+                limit_sql = sql + " limit " + str((page_num - 1) * page_size) + "," + str(page_size)
+                current_app.logger.info("mysql分页查询分页数据" + limit_sql)
+                cursor.execute(limit_sql, data)
+                fetch_data = cursor.fetchall()
+                fields = [tup[0] for tup in cursor.description]
+                return all_count, [dict(zip(fields, row)) for row in fetch_data]
+            elif self.db_type == "oracle":
+                pass
+            elif self.db_type == "dm":
+                pass
+            else:
+                raise Exception("分页查询不支持数据库类型！！！")
 
     # 执行单个sql insert update delete
     def execute_sql(self, sql, data=None):
@@ -102,12 +124,16 @@ class CommonDbPool(CommonDbPoolBase):
         if data is None:
             cursor.execute(sql)
         else:
+            if self.db_type == "mysql":
+                sql = re.sub(":\d", "%s", sql)
             cursor.execute(sql, data)
 
     # 执行单个多个
     def insert_many(self, sql, values):
         conn = local_connect.conn
         cursor = conn.cursor()
+        if self.db_type == "mysql":
+            sql = re.sub(":\d", "%s", sql)
         cursor.executemany(sql, values)
 
     # 驼峰转换
@@ -124,8 +150,8 @@ class CommonDbPool(CommonDbPoolBase):
             j += 1
         return res
 
-
-if __name__ == '__main__':
-    mysql_config = {"user": "root", "password": "hj123456", "host": "localhost", "port": 3306, "db": "test"}
-    commonDbPool = CommonDbPool("mysql", mysql_config)
-    print(commonDbPool.query_page("select * from user"))
+#
+# if __name__ == '__main__':
+#     mysql_config = {"user": "root", "password": "hj123456", "host": "localhost", "port": 3306, "db": "test"}
+#     commonDbPool = CommonDbPool("mysql", mysql_config)
+#     print(commonDbPool.query_page("select * from user"))

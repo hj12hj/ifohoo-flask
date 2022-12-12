@@ -14,7 +14,7 @@ def handle_time_format(func):
 
 
 def resolve_list(datas: list) -> list:
-    if isinstance(datas,list):
+    if isinstance(datas, list):
         for data in datas:
             keys = list(data.keys())
             for key in keys:
@@ -23,7 +23,7 @@ def resolve_list(datas: list) -> list:
                 if type(data[key]) == datetime.date:
                     data[key] = data[key].strftime('%Y-%m-%d')
         return datas
-    elif isinstance(datas,dict):
+    elif isinstance(datas, dict):
         keys = list(datas.keys())
         for key in keys:
             if type(datas[key]) == datetime.datetime:
@@ -32,5 +32,5 @@ def resolve_list(datas: list) -> list:
                 datas[key] = datas[key].strftime('%Y-%m-%d')
         return datas
 
-
-
+    elif isinstance(datas,tuple):
+        pass
