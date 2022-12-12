@@ -1,7 +1,5 @@
-import logging
-
 from flask import Flask
-from flask.logging import default_handler
+
 from controllers import blueprint_list
 from registry import port
 from variables.local_connetion import create_local_connect
