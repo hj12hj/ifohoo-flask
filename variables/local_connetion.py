@@ -75,6 +75,8 @@ def create_local_connect(app):
                 try:
                     local_page_info.pageNum = params.get("pageNum")
                     local_page_info.pageSize = params.get("pageSize")
+                    app.logger.info("拦截到分页请求 pageNum = " + str(local_page_info.pageNum) + " pageSize = " + str(
+                        local_page_info.pageSize))
                 except Exception as e:
                     pass
 
