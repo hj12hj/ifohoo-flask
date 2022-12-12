@@ -16,7 +16,7 @@ application:
 
 #配置名称跟代码对应的
 dbInfo:
-  dbType: dm
+  dbType: mysql
 
   mysql:
     host: 127.0.0.1
