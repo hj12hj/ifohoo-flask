@@ -2,9 +2,9 @@ from flask import Flask, request
 
 from controllers import blueprint_list
 from exception.ifms_http_exception import IfmsHttpException
+from redisutils import redisutils
 from registry import port
 from variables.local_connetion import create_local_connect
-from redisutils import redisutils
 
 app = Flask(__name__)
 serverPort = port if port is not None else 5000
