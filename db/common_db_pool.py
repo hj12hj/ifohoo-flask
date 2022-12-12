@@ -12,29 +12,35 @@ class CommonDbPool(CommonDbPoolBase):
 
     # 查询单个结果
     def query_one(self, sql, data=None):
+        current_app.logger.info("查询单个结果 sql --> " + sql)
+        current_app.logger.info("参数 --> " + str(data))
         conn = local_connect.conn
         cursor = conn.cursor()
         if data is None:
             cursor.execute(sql)
         else:
+            # mysql 占位符跟 oracle dm  不一样 加个转换
+            if self.db_type == "mysql":
+                sql = re.sub(":\d", "%s", sql)
             cursor.execute(sql, data)
-        data = cursor.fetchone()
+        fetch_data = cursor.fetchone()
         fields = [tup[0] for tup in cursor.description]
         fields = [self.__str2Hump(i) for i in fields]
-        if data is None:
+        if fetch_data is None:
             return None
         else:
-            return dict(zip(fields, data))
+            return dict(zip(fields, fetch_data))
 
     # 查询所有结果
     def query_all(self, sql, data=None):
         current_app.logger.info("查询多个结果 sql --> " + sql)
-        current_app.logger.info("data --> " + str(data))
+        current_app.logger.info("参数 --> " + str(data))
         conn = local_connect.conn
         cursor = conn.cursor()
         if data is None:
             cursor.execute(sql)
         else:
+            # mysql 占位符跟 oracle dm  不一样 加个转换
             if self.db_type == "mysql":
                 sql = re.sub(":\d", "%s", sql)
             cursor.execute(sql, data)
@@ -49,11 +55,13 @@ class CommonDbPool(CommonDbPoolBase):
     # 查询指定个数结果
     def query_many(self, sql, data=None, num=0):
         current_app.logger.info("查询多个结果 sql --> " + sql)
+        current_app.logger.info("参数 --> " + str(data))
         conn = local_connect.conn
         cursor = conn.cursor()
         if data is None:
             cursor.execute(sql)
         else:
+            # mysql 占位符跟 oracle dm  不一样 加个转换
             if self.db_type == "mysql":
                 sql = re.sub(":\d", "%s", sql)
             cursor.execute(sql, data)
@@ -100,6 +108,7 @@ class CommonDbPool(CommonDbPoolBase):
                 raise Exception("分页查询不支持数据库类型！！！")
         else:
             if self.db_type == "mysql":
+                # mysql 占位符跟 oracle dm  不一样 加个转换
                 sql = re.sub(":\d", "%s", sql)
                 all_count = cursor.execute(all_sql, data)
                 current_app.logger.info("mysql分页查询所有数据" + all_sql)
