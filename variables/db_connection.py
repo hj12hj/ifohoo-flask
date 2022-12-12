@@ -1,11 +1,17 @@
 from config import dbInfo
 from db import CommonDbPool
+from registry import config
 
-db_type = dbInfo.get("dbType")
+if   config is  None:
 
-print("db_type is " + db_type)
+    db_type = dbInfo.get("dbType")
 
-db_config = dbInfo.get(db_type)
+    print("db_type is " + db_type)
+
+    db_config = dbInfo.get(db_type)
+else:
+    dbType = config.get("dbInfo").get("dbType")
+    db_config = config.get("dbInfo").get(dbType)
 
 print("db_config_is ---->>>>  " + str(db_config))
 

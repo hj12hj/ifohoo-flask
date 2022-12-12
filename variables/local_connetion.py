@@ -4,7 +4,6 @@ import threading
 from flask import request, current_app
 
 from exception.ifms_http_exception import IfmsHttpException
-from redisutils import redisutils
 from variables.local_page_helper import local_page_info
 from variables.local_token import local_token
 
@@ -50,14 +49,6 @@ def create_local_connect(app):
 
     @app.before_request
     def before_request():
-        # 验证token
-        token = request.headers.get("token")
-        if token is None:
-            raise IfmsHttpException("token不能为空", 401)
-        info = redisutils.get_by_key(token)
-        if info is None:
-            raise IfmsHttpException("token无效", 401)
-
         # 绑定线程变量
         from variables.db_connection import db
         conn = db.get_connection()
