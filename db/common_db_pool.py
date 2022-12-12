@@ -1,6 +1,8 @@
 from db.common_db_pool_base import CommonDbPoolBase
 from variables.local_connetion import local_connect
 from flask import current_app
+import re
+from variables.local_page_helper import local_page_info
 
 
 # 通用数据库连接池实现类
@@ -65,15 +67,32 @@ class CommonDbPool(CommonDbPoolBase):
         cursor = conn.cursor()
         page_num = 1
         page_size = 10
+        try:
+            page_size = local_page_info.pageSize
+            page_num = local_page_info.pageNum
+        except Exception:
+            pass
+
+        match = re.match(".*(from.*)", sql)
+        if match is None:
+            raise Exception("分页查询 error")
+        else:
+            all_sql = "select count(*)  " + match.group(1)
         if self.db_type == "mysql":
-            all_count = cursor.execute(sql)
-            print(sql)
-            limit_sql = sql + " limit " + str(page_num) + "," + str(page_size)
-            print(limit_sql)
+            all_count = cursor.execute(all_sql)
+            current_app.logger.info(all_sql)
+            limit_sql = sql + " limit " + str((page_num - 1) * page_size) + "," + str(page_size)
+            current_app.logger.info(limit_sql)
             cursor.execute(limit_sql)
             fetch_data = cursor.fetchall()
             fields = [tup[0] for tup in cursor.description]
             return all_count, [dict(zip(fields, row)) for row in fetch_data]
+        elif self.db_type == "oracle":
+            pass
+        elif self.db_type == "dm":
+            pass
+        else:
+            raise Exception("分页查询 Error")
 
     # 执行单个sql insert update delete
     def execute_sql(self, sql, data=None):

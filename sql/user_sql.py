@@ -7,9 +7,10 @@ class UserSql:
     def __init__(self):
         self.db = db
 
-    @handle_time_format
+    # @handle_time_format
     def get_users(self):
-        return self.db.query_all("select * from test")
+        count, data = self.db.query_page("select * from test")
+        return data
 
     def insert_user(self):
         self.db.execute_sql("insert into user (user_id, user_name) values (%s,%s)",
