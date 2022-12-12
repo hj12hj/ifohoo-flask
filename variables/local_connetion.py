@@ -57,6 +57,7 @@ def create_local_connect(app):
         info = redisutils.get_by_key(token)
         if info is None:
             raise IfmsHttpException("token无效", 401)
+
         # 绑定线程变量
         from variables.db_connection import db
         conn = db.get_connection()
@@ -78,13 +79,13 @@ def create_local_connect(app):
                     pass
 
     # 这里归还数据库连接池
-    @app.after_request
-    def after_request(response):
+    @app.teardown_request
+    def after_request(request):
         is_has = False
         try:
             local_connect.__getattribute__("conn")
             is_has = True
-        except Exception:
+        except Exception as e:
             is_has = False
         if is_has:
             local_connect.conn.close()
@@ -92,7 +93,7 @@ def create_local_connect(app):
             local_connect.conn = None
             local_connect.cursor = None
 
-        return response
+
 
     @app.errorhandler(Exception)
     def server_error(e):
