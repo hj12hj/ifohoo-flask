@@ -1,10 +1,15 @@
 from flask import Flask, request
-
+# from gevent import pywsgi
 from controllers import blueprint_list
 from exception.ifms_http_exception import IfmsHttpException
 from redisutils import redisutils
 from registry import port
 from variables.local_connetion import create_local_connect
+
+import pymysql
+import cx_Oracle
+import dmPython
+
 
 app = Flask(__name__)
 serverPort = port if port is not None else 5000
@@ -28,9 +33,11 @@ if __name__ == '__main__':
     app.logger.warning(
         """
         ----------------------------
-        |  app.run() => flask run  |
+        |  app.run() => flask run  | 
         ----------------------------
         """
     )
     create_local_connect(app)
+    # server = pywsgi.WSGIServer(('0.0.0.0', serverPort), app)
+    # server.serve_forever()
     app.run(debug=False, port=serverPort, host='0.0.0.0')
