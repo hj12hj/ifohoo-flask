@@ -14,7 +14,7 @@ class ConfigSql:
     @handle_time_format
     def get_config_list(self):
         totle, data = self.db.query_page("select * from dynamic_config")
-        return {"totle": totle, "list_data": data}
+        return {"totle": totle, "list": data}
 
     # 动态配置插入数据
     def insert_config_info(self, config_data):

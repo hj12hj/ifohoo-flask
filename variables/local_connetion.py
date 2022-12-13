@@ -64,8 +64,8 @@ def create_local_connect(app):
         if params is not None:
             if request.method == "GET":
                 try:
-                    local_page_info.pageNum = int(params.get("pageNum"))
-                    local_page_info.pageSize = int(params.get("pageSize"))
+                    local_page_info.pageNum = int(params.get("page"))
+                    local_page_info.pageSize = int(params.get("pagesize"))
                     app.logger.info("拦截到分页请求 pageNum = " + str(local_page_info.pageNum) + " pageSize = " + str(
                         local_page_info.pageSize))
                 except Exception as e:
@@ -88,14 +88,14 @@ def create_local_connect(app):
 
 
 
-    @app.errorhandler(Exception)
-    def server_error(e):
-        current_app.logger.error("访问出错 ---->  " + str(e))
-        msg = {
-            "code": -1,
-            "msg": e.__str__()
-        }
-        if isinstance(e, IfmsHttpException):
-            return e.__str__()
-        else:
-            return msg
+    # @app.errorhandler(Exception)
+    # def server_error(e):
+    #     current_app.logger.error("访问出错 ---->  " + str(e))
+    #     msg = {
+    #         "code": -1,
+    #         "msg": e.__str__()
+    #     }
+    #     if isinstance(e, IfmsHttpException):
+    #         return e.__str__()
+    #     else:
+    #         return msg

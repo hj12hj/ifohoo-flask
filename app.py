@@ -25,6 +25,7 @@ def before_request():
     if info is None:
         raise IfmsHttpException("token无效", 401)
 
+
 # 注册蓝图列表
 for blueprint in blueprint_list:
     app.register_blueprint(blueprint)
