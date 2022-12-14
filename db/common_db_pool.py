@@ -115,14 +115,13 @@ class CommonDbPool(CommonDbPoolBase):
                 fetch_data = cursor.fetchall()
                 fields = [tup[0] for tup in cursor.description]
                 fields = [self.__str2Hump(i) for i in fields]
-
-                pass
+                return all_count, [dict(zip(fields, row)) for row in fetch_data]
             elif self.db_type == "dm":
                 pass
             else:
                 raise Exception("分页查询不支持数据库类型！！！")
         else:
-            if self.db_type == "mysql":
+            if self.db_type == "mysql" or self.db_type == "dm":
                 # mysql 占位符跟 oracle dm  不一样 加个转换
                 sql = re.sub(":\d", "%s", sql)
                 cursor.execute(all_sql, data)
@@ -136,9 +135,21 @@ class CommonDbPool(CommonDbPoolBase):
                 fields = [self.__str2Hump(i) for i in fields]
                 return all_count, [dict(zip(fields, row)) for row in fetch_data]
             elif self.db_type == "oracle":
-                pass
-            elif self.db_type == "dm":
-                pass
+                # oracle 分页拦截
+                cursor.execute(all_sql, data)
+                all_count = cursor.fetchone()[0]
+                current_app.logger.info(self.db_type + "分页查询所有数据" + all_sql)
+                current_app.logger.info(self.db_type + "分页查询所有canshu" + str(data))
+                limit_sql = "select * from (select rownum rn, t.* from (" + sql + ") t where rownum <= " + str(
+                    page_num * page_size) + ") where rn > " + str((page_num - 1) * page_size)
+                cursor.execute(limit_sql, data)
+                current_app.logger.info(self.db_type + "分页查询分页数据" + limit_sql)
+                current_app.logger.info(self.db_type + "分页查询分页canshu" + str(data))
+                fetch_data = cursor.fetchall()
+                fields = [tup[0] for tup in cursor.description]
+                fields = [self.__str2Hump(i) for i in fields]
+                return all_count, [dict(zip(fields, row)) for row in fetch_data]
+
             else:
                 raise Exception("分页查询不支持数据库类型！！！")
 

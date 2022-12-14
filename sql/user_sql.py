@@ -9,8 +9,9 @@ class UserSql:
 
     # @handle_time_format
     def get_users(self):
-        data = self.db.query_page("select * from test  ")
-        return data
+        totle, data  = self.db.query_page("select * from test where user_id =:1",[1])
+        return {"totle": totle, "list": data}
+
 
     def insert_user(self):
         self.db.execute_sql("insert into user (user_id, user_name) values (%s,%s)",
