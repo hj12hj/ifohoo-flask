@@ -5,7 +5,7 @@ nacos:
   username: nacos
   password: nacos
   group: DEFAULT_GROUP
-  dataId: application1.yaml
+  dataId: application.yaml
 
 #本地服务信息配置
 application:
@@ -14,12 +14,9 @@ application:
   ip: 127.0.0.1
   group: DEFAULT_GROUP
 
-
-logToFile: false
-
 #配置名称跟代码对应的
 dbInfo:
-  dbType: mysql
+  dbType: dm
 
   mysql:
     host: 10.7.31.9

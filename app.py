@@ -1,10 +1,18 @@
-from flask import Flask, request
+import json
 
+from flask import Flask, request
+# from gevent import pywsgi
 from controllers import blueprint_list
 from exception.ifms_http_exception import IfmsHttpException
 from redisutils import redisutils
 from registry import port
+from variables import local_token
 from variables.local_connetion import create_local_connect
+
+# import pymysql
+# import cx_Oracle
+# import dmPython
+
 
 app = Flask(__name__)
 serverPort = port if port is not None else 5000
@@ -14,11 +22,16 @@ serverPort = port if port is not None else 5000
 def before_request():
     # 验证token
     token = request.headers.get("token")
+    local_token.token = request.headers.get("token")
     if token is None:
         raise IfmsHttpException("token不能为空", 401)
     info = redisutils.get_by_key(token)
     if info is None:
         raise IfmsHttpException("token无效", 401)
+    else:
+        # 存储token信息
+        local_token.token_info = json.loads(info)
+
 
 # 注册蓝图列表
 for blueprint in blueprint_list:
@@ -28,9 +41,11 @@ if __name__ == '__main__':
     app.logger.warning(
         """
         ----------------------------
-        |  app.run() => flask run  |
+        |  app.run() => flask run  | 
         ----------------------------
         """
     )
     create_local_connect(app)
+    # server = pywsgi.WSGIServer(('0.0.0.0', serverPort), app)
+    # server.serve_forever()
     app.run(debug=False, port=serverPort, host='0.0.0.0')

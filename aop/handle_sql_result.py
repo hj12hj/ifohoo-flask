@@ -23,7 +23,7 @@ def resolve_list(datas: list) -> list:
                 if type(data[key]) == datetime.date:
                     data[key] = data[key].strftime('%Y-%m-%d')
         return datas
-    elif isinstance(datas, dict):
+    elif isinstance(datas, dict) and datas.get("list") is None:
         keys = list(datas.keys())
         for key in keys:
             if type(datas[key]) == datetime.datetime:
@@ -32,5 +32,12 @@ def resolve_list(datas: list) -> list:
                 datas[key] = datas[key].strftime('%Y-%m-%d')
         return datas
 
-    elif isinstance(datas,tuple):
-        pass
+    elif isinstance(datas, dict) and datas.get("list") is not None:
+        for data in datas.get("list"):
+            keys = list(data.keys())
+            for key in keys:
+                if type(data[key]) == datetime.datetime:
+                    data[key] = data[key].strftime('%Y-%m-%d %H:%M:%S')
+                if type(data[key]) == datetime.date:
+                    data[key] = data[key].strftime('%Y-%m-%d')
+        return datas

@@ -2,6 +2,7 @@ from netifaces import interfaces, ifaddresses, AF_INET
 
 from config import configContent
 from registry.nacos_registry import NacosRegistry
+import yaml
 
 addresses = []
 local_ip = "127.0.0.1"
@@ -36,10 +37,13 @@ registry.register()
 
 print("Register Server Successful")
 
-
 # 获取配置中心配置 todo 配置中心配置应该覆盖本地的配置
-config = registry.get_config(data_id=dataId)
-if  config is not None:
+try:
+    config = yaml.safe_load(registry.get_config(data_id=dataId))
+except Exception as e:
+    config = None
+
+if config is not None:
     remote_applicationConfig = config.get("application")
     remote_port = config.get("port")
 
@@ -47,4 +51,4 @@ if  config is not None:
         applicationConfig = remote_applicationConfig
         port = applicationConfig.get("port")
 
-print("pull Config from center is ---->>>> " + str(config) )
+print("pull Config from center is ---->>>> " + str(config))

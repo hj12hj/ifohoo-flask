@@ -9,43 +9,31 @@ from variables.local_token import local_token
 
 local_connect = threading.local()
 
-
-# def logger_config():
-#     # 添加控制台handler，用于输出日志到控制台
-#     console_handler = logging.StreamHandler()
-#     # 添加日志文件handler，用于输出日志到文件中
-#     file_handler = logging.FileHandler(filename='log.log', encoding='UTF-8')
-#     # 设置格式并赋予handler
-#     formatter = logging.Formatter(
-#         "%(asctime)s %(name)s:%(levelname)s:%(message)s   in files %(filename)s: lines %(lineno)s")
-#     file_handler.setFormatter(formatter)
-#     console_handler.setFormatter(formatter)
-#     # 将handler添加到日志器中
-#     app.logger.addHandler(file_handler)
-#     # app.logger.addHandler(console_handler)
-#     app.logger.setLevel(logging.DEBUG)
-#     app.logger.removeHandler(default_handler)
-#     default_handler.setFormatter(formatter)
-
-
 # 本地数据库连接保存用于注解事务
 def create_local_connect(app):
+    from registry import config
+    from config import logToFile
+    if config is not None and config["logToFile"] is not None:
+        log_file_flag = config["logToFile"]
+    else:
+        log_file_flag = logToFile
     """
        flask log
     """
-    # 添加控制台handler，用于输出日志到控制台
-    console_handler = logging.StreamHandler()
-    # 添加日志文件handler，用于输出日志到文件中
-    file_handler = logging.FileHandler(filename='log.log', encoding='UTF-8')
-    # 设置格式并赋予handler
-    formatter = logging.Formatter(
-        "%(asctime)s %(name)s:%(levelname)s:%(message)s   in files %(filename)s: lines %(lineno)s")
-    file_handler.setFormatter(formatter)
-    console_handler.setFormatter(formatter)
-    # 将handler添加到日志器中
-    app.logger.addHandler(file_handler)
-    # app.logger.addHandler(console_handler)
-    app.logger.setLevel(logging.DEBUG)
+    if log_file_flag == True:
+        # 添加控制台handler，用于输出日志到控制台
+        console_handler = logging.StreamHandler()
+        # 添加日志文件handler，用于输出日志到文件中
+        file_handler = logging.FileHandler(filename='log.log', encoding='UTF-8')
+        # 设置格式并赋予handler
+        formatter = logging.Formatter(
+            "%(asctime)s %(name)s:%(levelname)s:%(message)s   in files %(filename)s: lines %(lineno)s")
+        file_handler.setFormatter(formatter)
+        console_handler.setFormatter(formatter)
+        # 将handler添加到日志器中
+        app.logger.addHandler(file_handler)
+        # app.logger.addHandler(console_handler)
+        app.logger.setLevel(logging.DEBUG)
 
     @app.before_request
     def before_request():
@@ -54,7 +42,6 @@ def create_local_connect(app):
         conn = db.get_connection()
         local_connect.conn = conn
         local_connect.cursor = conn.cursor()
-        local_token.token = request.headers.get("token")
 
         try:
             params = request.args
@@ -64,8 +51,8 @@ def create_local_connect(app):
         if params is not None:
             if request.method == "GET":
                 try:
-                    local_page_info.pageNum = int(params.get("pageNum"))
-                    local_page_info.pageSize = int(params.get("pageSize"))
+                    local_page_info.pageNum = int(params.get("page"))
+                    local_page_info.pageSize = int(params.get("pagesize"))
                     app.logger.info("拦截到分页请求 pageNum = " + str(local_page_info.pageNum) + " pageSize = " + str(
                         local_page_info.pageSize))
                 except Exception as e:
@@ -85,8 +72,6 @@ def create_local_connect(app):
             local_connect.cursor.close()
             local_connect.conn = None
             local_connect.cursor = None
-
-
 
     @app.errorhandler(Exception)
     def server_error(e):

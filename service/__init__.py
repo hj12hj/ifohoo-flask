@@ -1,4 +1,8 @@
+from service.config_history_service import ConfigHistoryService
 from service.user_service import UserService
-from sql import user_sql
+from service.config_service import ConfigService
 
-userService = UserService(user_sql)
+
+userService = UserService()
+configService = ConfigService()
+historyService = ConfigHistoryService()

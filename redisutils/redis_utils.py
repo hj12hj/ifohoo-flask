@@ -20,7 +20,7 @@ class RedisUtils:
     def get_by_key(self, key):
         info = None
         try:
-            info = self.get_connection().get(key)
+            info = self.get_connection().get(key).decode("utf-8")
         except Exception as e:
             pass
         return info
