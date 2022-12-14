@@ -14,6 +14,9 @@ application:
   ip: 127.0.0.1
   group: DEFAULT_GROUP
 
+
+logToFile: false
+
 #配置名称跟代码对应的
 dbInfo:
   dbType: mysql

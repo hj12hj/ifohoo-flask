@@ -14,8 +14,7 @@ config = Blueprint("config", __name__)
 @handle_web_request
 @handle_web_result
 def get_list(**kwargs):
-    query_params = kwargs["params"]
-    return ReturnMessage(data=configService.get_config_list(query_params))
+    return ReturnMessage(data=configService.get_config_list(kwargs["params"]))
 
 
 # 插入数据
@@ -35,4 +34,24 @@ def insert_config(**kwargs):
 def update_config(**kwargs):
     json_data = kwargs.get("json_data")
     configService.update_config_info(json_data)
+    return ReturnMessage()
+
+
+# 部署配置
+@config.route("/config/deploy", methods=["GET"])
+@handle_web_request
+@handle_web_result
+def deploy_config(**kwargs):
+    params = kwargs.get("params")
+    configService.deploy_config(params.get("formCode"))
+    return ReturnMessage()
+
+
+# 详情
+@config.route("/config/findOne", methods=["GET"])
+@handle_web_request
+@handle_web_result
+def find_by_id(**kwargs):
+    params = kwargs.get("params")
+    configService.find_by_id(params.get("formCode"))
     return ReturnMessage()

@@ -21,7 +21,7 @@ class CommonDbPool(CommonDbPoolBase):
         else:
             # mysql 占位符跟 oracle dm  不一样 加个转换
             if self.db_type == "mysql":
-                sql = re.sub(":\d", "%s", sql)
+                sql = re.sub(":\d{1,2}", "%s", sql)
             cursor.execute(sql, data)
         fetch_data = cursor.fetchone()
         fields = [tup[0] for tup in cursor.description]
@@ -42,7 +42,7 @@ class CommonDbPool(CommonDbPoolBase):
         else:
             # mysql 占位符跟 oracle dm  不一样 加个转换
             if self.db_type == "mysql":
-                sql = re.sub(":\d", "%s", sql)
+                sql = re.sub(":\d{1,2}", "%s", sql)
             cursor.execute(sql, data)
         fetch_data = cursor.fetchall()
         fields = [tup[0] for tup in cursor.description]
@@ -63,7 +63,7 @@ class CommonDbPool(CommonDbPoolBase):
         else:
             # mysql 占位符跟 oracle dm  不一样 加个转换
             if self.db_type == "mysql":
-                sql = re.sub(":\d", "%s", sql)
+                sql = re.sub(":\d{1,2}", "%s", sql)
             cursor.execute(sql, data)
         fetch_data = cursor.fetchmany(num)
         fields = [tup[0] for tup in cursor.description]
@@ -94,13 +94,14 @@ class CommonDbPool(CommonDbPoolBase):
         if data is None:
             if self.db_type == "mysql" or self.db_type == "dm":
                 if self.db_type == "mysql":
-                        sql = re.sub(":\d", "%s", sql)
+                    sql = re.sub(":\d{1,2}", "%s", sql)
                 cursor.execute(all_sql)
                 all_count = cursor.fetchone()[0]
                 current_app.logger.info(self.db_type + "分页查询所有数据" + all_sql)
                 limit_sql = sql + " limit " + str((page_num - 1) * page_size) + "," + str(page_size)
                 cursor.execute(limit_sql)
                 current_app.logger.info(self.db_type + "分页查询分页数据" + limit_sql)
+                current_app.logger.info(self.db_type + "分页查询分页参数" + str(data))
                 fetch_data = cursor.fetchall()
                 fields = [tup[0] for tup in cursor.description]
                 fields = [self.__str2Hump(i) for i in fields]
@@ -114,6 +115,7 @@ class CommonDbPool(CommonDbPoolBase):
                     page_num * page_size) + ") where rn > " + str((page_num - 1) * page_size)
                 cursor.execute(limit_sql)
                 current_app.logger.info(self.db_type + "分页查询分页数据" + limit_sql)
+                current_app.logger.info(self.db_type + "分页查询分页参数" + str(data))
                 fetch_data = cursor.fetchall()
                 fields = [tup[0] for tup in cursor.description]
                 fields = [self.__str2Hump(i) for i in fields]
@@ -126,13 +128,14 @@ class CommonDbPool(CommonDbPoolBase):
             if self.db_type == "mysql" or self.db_type == "dm":
                 # mysql 占位符跟 oracle dm  不一样 加个转换
                 if self.db_type == "mysql":
-                        sql = re.sub(":\d", "%s", sql)
-                        all_sql = re.sub(":\d", "%s", all_sql)
+                    sql = re.sub(":\d{1,2}", "%s", sql)
+                    all_sql = re.sub(":\d{1,2}", "%s", all_sql)
                 cursor.execute(all_sql, data)
                 all_count = cursor.fetchone()[0]
-                current_app.logger.info(self.db_type+"分页查询所有数据" + all_sql)
+                current_app.logger.info(self.db_type + "分页查询所有数据" + all_sql)
                 limit_sql = sql + " limit " + str((page_num - 1) * page_size) + "," + str(page_size)
-                current_app.logger.info(self.db_type+"分页查询分页数据" + limit_sql)
+                current_app.logger.info(self.db_type + "分页查询分页数据" + limit_sql)
+                current_app.logger.info(self.db_type + "分页查询所有参数" + str(data))
                 cursor.execute(limit_sql, data)
                 fetch_data = cursor.fetchall()
                 fields = [tup[0] for tup in cursor.description]
@@ -143,7 +146,6 @@ class CommonDbPool(CommonDbPoolBase):
                 cursor.execute(all_sql, data)
                 all_count = cursor.fetchone()[0]
                 current_app.logger.info(self.db_type + "分页查询所有数据" + all_sql)
-                current_app.logger.info(self.db_type + "分页查询所有参数" + str(data))
                 limit_sql = "select * from (select rownum rn, t.* from (" + sql + ") t where rownum <= " + str(
                     page_num * page_size) + ") where rn > " + str((page_num - 1) * page_size)
                 cursor.execute(limit_sql, data)
@@ -167,7 +169,7 @@ class CommonDbPool(CommonDbPoolBase):
             cursor.execute(sql)
         else:
             if self.db_type == "mysql":
-                sql = re.sub(":\d", "%s", sql)
+                sql = re.sub(":\d{1,2}", "%s", sql)
             cursor.execute(sql, data)
 
     # 执行单个多个
@@ -175,7 +177,7 @@ class CommonDbPool(CommonDbPoolBase):
         conn = local_connect.conn
         cursor = conn.cursor()
         if self.db_type == "mysql":
-            sql = re.sub(":\d", "%s", sql)
+            sql = re.sub(":\d{1,2}", "%s", sql)
         cursor.executemany(sql, values)
 
     # 驼峰转换
