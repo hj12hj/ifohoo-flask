@@ -15,7 +15,7 @@ config = Blueprint("config", __name__)
 @handle_web_result
 def get_list(**kwargs):
     query_params = kwargs["params"]
-    return ReturnMessage(data=configService.get_config_list())
+    return ReturnMessage(data=configService.get_config_list(query_params))
 
 
 # 插入数据

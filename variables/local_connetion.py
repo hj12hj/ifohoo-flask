@@ -54,7 +54,6 @@ def create_local_connect(app):
         conn = db.get_connection()
         local_connect.conn = conn
         local_connect.cursor = conn.cursor()
-        local_token.token = request.headers.get("token")
 
         try:
             params = request.args

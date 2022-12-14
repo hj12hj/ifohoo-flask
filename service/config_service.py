@@ -5,8 +5,8 @@ class ConfigService:
     def __init__(self, sql):
         self.sql = sql
 
-    def get_config_list(self):
-        return self.sql.get_config_list()
+    def get_config_list(self, query_data):
+        return self.sql.get_config_list(query_data)
 
     @transaction
     def insert_config_info(self, config_data):

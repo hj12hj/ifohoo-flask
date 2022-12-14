@@ -1,9 +1,12 @@
+import json
+
 from flask import Flask, request
 # from gevent import pywsgi
 from controllers import blueprint_list
 from exception.ifms_http_exception import IfmsHttpException
 from redisutils import redisutils
 from registry import port
+from variables import local_token
 from variables.local_connetion import create_local_connect
 
 # import pymysql
@@ -19,11 +22,15 @@ serverPort = port if port is not None else 5000
 def before_request():
     # 验证token
     token = request.headers.get("token")
+    local_token.token = request.headers.get("token")
     if token is None:
         raise IfmsHttpException("token不能为空", 401)
     info = redisutils.get_by_key(token)
     if info is None:
         raise IfmsHttpException("token无效", 401)
+    else:
+        # 存储token信息
+        local_token.token_info = json.loads(info)
 
 
 # 注册蓝图列表

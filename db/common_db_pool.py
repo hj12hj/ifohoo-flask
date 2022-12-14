@@ -127,6 +127,7 @@ class CommonDbPool(CommonDbPoolBase):
                 # mysql 占位符跟 oracle dm  不一样 加个转换
                 if self.db_type == "mysql":
                         sql = re.sub(":\d", "%s", sql)
+                        all_sql = re.sub(":\d", "%s", all_sql)
                 cursor.execute(all_sql, data)
                 all_count = cursor.fetchone()[0]
                 current_app.logger.info(self.db_type+"分页查询所有数据" + all_sql)
@@ -142,12 +143,12 @@ class CommonDbPool(CommonDbPoolBase):
                 cursor.execute(all_sql, data)
                 all_count = cursor.fetchone()[0]
                 current_app.logger.info(self.db_type + "分页查询所有数据" + all_sql)
-                current_app.logger.info(self.db_type + "分页查询所有canshu" + str(data))
+                current_app.logger.info(self.db_type + "分页查询所有参数" + str(data))
                 limit_sql = "select * from (select rownum rn, t.* from (" + sql + ") t where rownum <= " + str(
                     page_num * page_size) + ") where rn > " + str((page_num - 1) * page_size)
                 cursor.execute(limit_sql, data)
                 current_app.logger.info(self.db_type + "分页查询分页数据" + limit_sql)
-                current_app.logger.info(self.db_type + "分页查询分页canshu" + str(data))
+                current_app.logger.info(self.db_type + "分页查询分页参数" + str(data))
                 fetch_data = cursor.fetchall()
                 fields = [tup[0] for tup in cursor.description]
                 fields = [self.__str2Hump(i) for i in fields]
