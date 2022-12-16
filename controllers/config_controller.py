@@ -18,12 +18,21 @@ def get_list(**kwargs):
 
 
 # 插入数据
-@config.route("/config/insert", methods=["POST"])
+@config.route("/config/add", methods=["POST"])
 @handle_web_request
 @handle_web_result
 def insert_config(**kwargs):
     json_data = kwargs.get("json_data")
     configService.insert_config_info(json_data)
+    return ReturnMessage()
+
+
+@config.route("/config/delete", methods=["POST"])
+@handle_web_request
+@handle_web_result
+def delete_by_id(**kwargs):
+    params = kwargs.get("json_data")
+    configService.delete_by_id(params.get("formCode"))
     return ReturnMessage()
 
 
@@ -38,11 +47,11 @@ def update_config(**kwargs):
 
 
 # 部署配置
-@config.route("/config/deploy", methods=["GET"])
+@config.route("/config/publish", methods=["POST"])
 @handle_web_request
 @handle_web_result
 def deploy_config(**kwargs):
-    params = kwargs.get("params")
+    params = kwargs.get("json_data")
     configService.deploy_config(params.get("formCode"))
     return ReturnMessage()
 
@@ -55,3 +64,12 @@ def find_by_id(**kwargs):
     params = kwargs.get("params")
     configService.find_by_id(params.get("formCode"))
     return ReturnMessage()
+
+
+# Map
+@config.route("/config/nameMap", methods=["GET"])
+@handle_web_request
+@handle_web_result
+def find_name_map(**kwargs):
+    data = configService.find_name_map()
+    return ReturnMessage(data=data)

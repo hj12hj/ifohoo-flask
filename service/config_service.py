@@ -39,3 +39,7 @@ class ConfigService:
 
     def find_by_id(self, form_code):
         return self.sql.find_by_id(form_code)
+
+    def find_name_map(self):
+        data = self.sql.find_name_map()
+        return {i.get("formCode"): i.get("formName") for i in data}

@@ -9,17 +9,17 @@ nacos:
 
 #本地服务信息配置
 application:
-  name: ry
+  name: report
   port: 9000
-  ip: 127.0.0.1
+  ip: 10.211.55.28
   group: DEFAULT_GROUP
 
 
-logToFile: false
+logToFile: true
 
 #配置名称跟代码对应的
 dbInfo:
-  dbType: mysql
+  dbType: oracle
 
   mysql:
     host: 10.7.31.9

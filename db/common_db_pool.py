@@ -1,3 +1,5 @@
+import cx_Oracle
+
 from db.common_db_pool_base import CommonDbPoolBase
 from variables.local_connetion import local_connect
 from flask import current_app
@@ -29,7 +31,13 @@ class CommonDbPool(CommonDbPoolBase):
         if fetch_data is None:
             return None
         else:
-            return dict(zip(fields, fetch_data))
+            data = dict(zip(fields, fetch_data))
+            if self.db_type == "oracle":
+                # oracle clob
+                for key, value in data.items():
+                    if isinstance(value, self.db_creator.LOB):
+                        data[key] = value.read()
+            return data
 
     # 查询所有结果
     def query_all(self, sql, data=None):
@@ -50,7 +58,14 @@ class CommonDbPool(CommonDbPoolBase):
         if fetch_data is None:
             return None
         else:
-            return [dict(zip(fields, row)) for row in fetch_data]
+            data = [dict(zip(fields, row)) for row in fetch_data]
+            if self.db_type == "oracle":
+                # oracle clob
+                for return_data in data:
+                    for key, value in return_data.items():
+                        if isinstance(value, self.db_creator.LOB):
+                            return_data[key] = value.read()
+            return data
 
     # 查询指定个数结果
     def query_many(self, sql, data=None, num=0):
@@ -71,7 +86,14 @@ class CommonDbPool(CommonDbPoolBase):
         if fetch_data is None:
             return None
         else:
-            return [dict(zip(fields, row)) for row in fetch_data]
+            data = [dict(zip(fields, row)) for row in fetch_data]
+            if self.db_type == "oracle":
+                # oracle clob
+                for return_data in data:
+                    for key, value in return_data.items():
+                        if isinstance(value, self.db_creator.LOB):
+                            return_data[key] = value.read()
+            return data
 
     # 分页查询
     def query_page(self, sql, data=None):
@@ -154,7 +176,13 @@ class CommonDbPool(CommonDbPoolBase):
                 fetch_data = cursor.fetchall()
                 fields = [tup[0] for tup in cursor.description]
                 fields = [self.__str2Hump(i) for i in fields]
-                return all_count, [dict(zip(fields, row)) for row in fetch_data]
+                data = [dict(zip(fields, row)) for row in fetch_data]
+                # oracle clob
+                for return_data in data:
+                    for key, value in return_data.items():
+                        if isinstance(value, self.db_creator.LOB):
+                            return_data[key] = value.read()
+                return all_count, data
 
             else:
                 raise Exception("分页查询不支持数据库类型！！！")
@@ -193,9 +221,3 @@ class CommonDbPool(CommonDbPoolBase):
                 res = res + i[0].upper() + i[1:]
             j += 1
         return res
-
-#
-# if __name__ == '__main__':
-#     mysql_config = {"user": "root", "password": "hj123456", "host": "localhost", "port": 3306, "db": "test"}
-#     commonDbPool = CommonDbPool("mysql", mysql_config)
-#     print(commonDbPool.query_page("select * from user"))
