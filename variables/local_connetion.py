@@ -73,14 +73,14 @@ def create_local_connect(app):
             local_connect.conn = None
             local_connect.cursor = None
 
-    @app.errorhandler(Exception)
-    def server_error(e):
-        current_app.logger.error("访问出错 ---->  " + str(e))
-        msg = {
-            "code": -1,
-            "message": e.__str__()
-        }
-        if isinstance(e, IfmsHttpException):
-            return e.__str__()
-        else:
-            return msg
+    # @app.errorhandler(Exception)
+    # def server_error(e):
+    #     current_app.logger.error("访问出错 ---->  " + str(e))
+    #     msg = {
+    #         "code": -1,
+    #         "message": e.__str__()
+    #     }
+    #     if isinstance(e, IfmsHttpException):
+    #         return e.__str__()
+    #     else:
+    #         return msg

@@ -26,7 +26,7 @@ class ConfigSql:
         dt = datetime.datetime.now()
         staffId = local_token.token_info.get("staffId")
         self.db.execute_sql(
-            "insert into dynamic_report (form_code, form_name, form_default_content, form_detail_content, version, creator, create_time, update_by, update_time) value (:1,:2,:3,:4,:5,:6,:7,:8,:9);",
+            "insert into dynamic_report (form_code, form_name, form_default_content, form_detail_content, version, creator, create_time, update_by, update_time) values (:1,:2,:3,:4,:5,:6,:7,:8,:9)",
             (config_data.get("formCode"), config_data.get("formName"), config_data.get("formDefaultContent"),
              config_data.get("formDetailContent"), 1, staffId, dt,
              staffId, dt))
@@ -45,4 +45,4 @@ class ConfigSql:
         return data
 
     def delete_by_id(self, form_code):
-        self.db.execute_sql("delete from dynamic_report where form_code = :1;", (form_code,))
+        self.db.execute_sql("delete from dynamic_report where form_code = :1", (form_code,))

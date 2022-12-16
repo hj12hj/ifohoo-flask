@@ -8,18 +8,19 @@ class CommonDbPoolBase(metaclass=abc.ABCMeta):
 
     def __init__(self, db_type, db_config):
         self.db_type = db_type
+        self.db_creator = None
         if self.db_type == "mysql":
-            db_creator = importlib.import_module("pymysql")
+            self.db_creator = importlib.import_module("pymysql")
         elif self.db_type == "sqlserver":
-            db_creator = importlib.import_module("pymssql")
+            self.db_creator = importlib.import_module("pymssql")
         elif self.db_type == "oracle":
-            db_creator = importlib.import_module("cx_Oracle")
+            self.db_creator = importlib.import_module("cx_Oracle")
         elif self.db_type == "dm":
-            db_creator = importlib.import_module("dmPython")
+            self.db_creator = importlib.import_module("dmPython")
         else:
             raise Exception("unsupported database type " + self.db_type)
 
-        self.pool = PooledDB(db_creator,
+        self.pool = PooledDB(self.db_creator,
                              mincached=0,
                              maxcached=6,
                              maxconnections=0,
