@@ -46,3 +46,6 @@ class ConfigSql:
 
     def delete_by_id(self, form_code):
         self.db.execute_sql("delete from dynamic_report where form_code = :1", (form_code,))
+
+    def find_name_map(self):
+        pass

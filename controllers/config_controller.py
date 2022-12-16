@@ -64,3 +64,12 @@ def find_by_id(**kwargs):
     params = kwargs.get("params")
     configService.find_by_id(params.get("formCode"))
     return ReturnMessage()
+
+
+# Map
+@config.route("/config/nameMap", methods=["GET"])
+@handle_web_request
+@handle_web_result
+def find_name_map(**kwargs):
+    data = configService.find_name_map()
+    return ReturnMessage(data=data)
