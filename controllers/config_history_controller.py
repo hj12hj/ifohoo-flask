@@ -16,3 +16,10 @@ config_history = Blueprint("config_history", __name__)
 @handle_web_result
 def get_config_history_list(**kwargs):
     return ReturnMessage(data=historyService.get_config_history_list(query_data=kwargs.get("params")))
+
+
+@config_history.route("/configHistory/latestConfig", methods=["GET"])
+@handle_web_request
+@handle_web_result
+def find_latest_config(**kwargs):
+    return ReturnMessage(data=historyService.find_latest_history(query_data=kwargs.get("params")))

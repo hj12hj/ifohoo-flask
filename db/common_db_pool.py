@@ -22,7 +22,7 @@ class CommonDbPool(CommonDbPoolBase):
             # mysql 占位符跟 oracle dm  不一样 加个转换
             if self.db_type == "mysql":
                 sql = re.sub(":\d{1,2}", "%s", sql)
-            cursor.execute(sql, data)
+        cursor.execute(sql, data)
         fetch_data = cursor.fetchone()
         fields = [tup[0] for tup in cursor.description]
         fields = [self.__str2Hump(i) for i in fields]
@@ -194,8 +194,3 @@ class CommonDbPool(CommonDbPoolBase):
             j += 1
         return res
 
-#
-# if __name__ == '__main__':
-#     mysql_config = {"user": "root", "password": "hj123456", "host": "localhost", "port": 3306, "db": "test"}
-#     commonDbPool = CommonDbPool("mysql", mysql_config)
-#     print(commonDbPool.query_page("select * from user"))

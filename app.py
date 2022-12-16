@@ -1,4 +1,5 @@
 import json
+import socket
 
 from flask import Flask, request
 # from gevent import pywsgi
@@ -16,6 +17,13 @@ from variables.local_connetion import create_local_connect
 
 app = Flask(__name__)
 serverPort = port if port is not None else 5000
+
+
+# 检查端口是否被占用 自动切换
+def port_is_used(port):
+    sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    result = sock.connect_ex(('127.0.0.1', port))
+    return result == 0  # 0 open 1 close
 
 
 @app.before_request
@@ -47,5 +55,10 @@ if __name__ == '__main__':
     )
     create_local_connect(app)
     # server = pywsgi.WSGIServer(('0.0.0.0', serverPort), app)
+    # 检查端口占用切换
+    # for i in range(serverPort - 1, 65535):
+    #     if not port_is_used(i):
+    #         serverPort = i
+    #         break
     # server.serve_forever()
     app.run(debug=False, port=serverPort, host='0.0.0.0')

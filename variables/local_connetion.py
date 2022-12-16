@@ -78,7 +78,7 @@ def create_local_connect(app):
         current_app.logger.error("访问出错 ---->  " + str(e))
         msg = {
             "code": -1,
-            "msg": e.__str__()
+            "message": e.__str__()
         }
         if isinstance(e, IfmsHttpException):
             return e.__str__()

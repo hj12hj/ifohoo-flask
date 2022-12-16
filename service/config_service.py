@@ -39,3 +39,4 @@ class ConfigService:
 
     def find_by_id(self, form_code):
         return self.sql.find_by_id(form_code)
+

@@ -11,6 +11,6 @@ class IfmsHttpException(Exception):
     def __str__(self) -> str:
         errorMsg = {
             "code": self.code,
-            "msg": self.msg
+            "message": self.msg
         }
         return json.dumps(errorMsg)
