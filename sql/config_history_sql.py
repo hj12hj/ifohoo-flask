@@ -1,4 +1,4 @@
-import datetime
+from datetime import datetime
 
 from aop.handle_sql_result import handle_time_format
 from aop.handle_transation import transaction
@@ -12,13 +12,23 @@ class ConfigHistorySql:
     def __init__(self):
         self.db = db
 
+    def __handle_time_format(self, item):
+        history_start_time = datetime.strptime(item.get("historyStartTime") + " 00:00:00",
+                                               "%Y-%m-%d %H:%M:%S") if item.get(
+            "historyStartTime") is not None else None
+        history_end_time = datetime.strptime(item.get("historyEndTime") + " 00:00:00",
+                                             "%Y-%m-%d %H:%M:%S") if item.get(
+            "historyEndTime") is not None else None
+        return history_start_time, history_end_time
+
     # 动态配置历史分页查询
     @handle_time_format
     def get_config_history_list(self, query_data=None):
+        history_start_time, history_end_time = self.__handle_time_format(query_data)
         totle, data = self.db.query_page(
-            "select * from dynamic_report_history where (form_code = :1 or :2 is null) and (last_flag = :3 or :4 is null) order by create_time desc",
+            "select * from dynamic_report_history where (form_code = :1 or :2 is null) and (last_flag = :3 or :4 is null) and (history_time > :5 or :6 is null) and (history_time < :7 or :8 is null) order by create_time desc",
             (query_data.get("formCode"), query_data.get("formCode"), query_data.get("lastFlag"),
-             query_data.get("lastFlag")))
+             query_data.get("lastFlag"),history_start_time,history_start_time, history_end_time, history_end_time))
         return {"totle": totle, "list": data}
 
     # 动态配置历史插入数据
@@ -53,5 +63,5 @@ class ConfigHistorySql:
     @handle_time_format
     def find_latest_history(self, query_data):
         return self.db.query_one(
-            "select * from dynamic_report_history where form_code = :1 and last_flag = 'Y'",data=
+            "select * from dynamic_report_history where form_code = :1 and last_flag = 'Y'", data=
             (query_data.get("formCode"),))

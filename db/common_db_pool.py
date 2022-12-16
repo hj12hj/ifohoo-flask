@@ -24,7 +24,7 @@ class CommonDbPool(CommonDbPoolBase):
             # mysql 占位符跟 oracle dm  不一样 加个转换
             if self.db_type == "mysql":
                 sql = re.sub(":\d{1,2}", "%s", sql)
-        cursor.execute(sql, data)
+            cursor.execute(sql, data)
         fetch_data = cursor.fetchone()
         fields = [tup[0] for tup in cursor.description]
         fields = [self.__str2Hump(i) for i in fields]
