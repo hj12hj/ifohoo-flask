@@ -1,5 +1,4 @@
-from datetime import datetime
-
+import datetime
 from aop.handle_sql_result import handle_time_format
 from aop.handle_transation import transaction
 from variables import local_token
@@ -13,10 +12,10 @@ class ConfigHistorySql:
         self.db = db
 
     def __handle_time_format(self, item):
-        history_start_time = datetime.strptime(item.get("historyStartTime") + " 00:00:00",
+        history_start_time = datetime.datetime.strptime(item.get("historyStartTime") + " 00:00:00",
                                                "%Y-%m-%d %H:%M:%S") if item.get(
             "historyStartTime") is not None else None
-        history_end_time = datetime.strptime(item.get("historyEndTime") + " 00:00:00",
+        history_end_time = datetime.datetime.strptime(item.get("historyEndTime") + " 00:00:00",
                                              "%Y-%m-%d %H:%M:%S") if item.get(
             "historyEndTime") is not None else None
         return history_start_time, history_end_time
