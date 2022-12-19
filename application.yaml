@@ -11,15 +11,15 @@ nacos:
 application:
   name: report
   port: 9000
-  ip: 10.211.55.28
+  ip: 10.7.31.9
   group: DEFAULT_GROUP
 
 
-logToFile: true
+logToFile: false
 
 #配置名称跟代码对应的
 dbInfo:
-  dbType: oracle
+  dbType: mysql
 
   mysql:
     host: 10.7.31.9
