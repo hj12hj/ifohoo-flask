@@ -107,13 +107,9 @@ class CommonDbPool(CommonDbPoolBase):
             page_num = local_page_info.pageNum
         except Exception:
             pass
-        match = re.match(".*(from.*)", sql)
-        if match is None:
-            raise Exception("分页查询拦截sql语句出错")
-        else:
-            from_sql = match.group(1)
-            all_sql = "select count(*)  " + match.group(1)
         if data is None:
+            # 正则得到求总数的sql
+            all_sql = self.__handle_limit_sql(sql)
             if self.db_type == "mysql" or self.db_type == "dm":
                 if self.db_type == "mysql":
                     sql = re.sub(":\d{1,2}", "%s", sql)
@@ -145,6 +141,10 @@ class CommonDbPool(CommonDbPoolBase):
             else:
                 raise Exception("分页查询不支持数据库类型！！！")
         else:
+            # 处理查询条件为空情况
+            sql, data = self.__handle_query_str(sql, data)
+            # 正则得到求总数的sql
+            all_sql = self.__handle_limit_sql(sql)
             if self.db_type == "mysql" or self.db_type == "dm":
                 # mysql 占位符跟 oracle dm  不一样 加个转换
                 if self.db_type == "mysql":
@@ -219,3 +219,34 @@ class CommonDbPool(CommonDbPoolBase):
                 res = res + i[0].upper() + i[1:]
             j += 1
         return res
+
+    def __handle_query_str(self, sql, param):
+        current_app.logger.info("处理sql查询条件")
+        current_app.logger.info("param --> " + str(param))
+        length = len(param)
+        new_list = []
+        for i in range(1, length):
+            if param[i] is None or param[i] == '':
+                sql = re.sub("and [^0-9]*[=,<,>,like]:" + str(i+1), " ", sql)
+            else:
+                new_list.append(param[i])
+        if param[0] is None or param[0] == '':
+            if len(new_list) == 0:
+                sql = re.sub("where.*?.*?:1.*?", " ", sql)
+            elif len(new_list) != 0:
+                sql = re.sub("where.*?.*?:1.*?and", "where ", sql)
+        else:
+            new_list.insert(0, param[0])
+        current_app.logger.info("处理后的sql --> " + sql)
+        current_app.logger.info("处理后的参数 --> " + str(new_list))
+        return sql, new_list
+
+    def __handle_limit_sql(self, sql):
+        match = re.match(".*(from.*)", sql)
+        if match is None:
+            raise Exception("分页查询拦截sql语句出错")
+        else:
+            from_sql = match.group(1)
+            all_sql = "select count(*)  " + match.group(1)
+
+        return all_sql

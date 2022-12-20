@@ -14,11 +14,20 @@ class ConfigSql:
     # 动态配置分页查询  查询条件 form_code form_name
     @handle_time_format
     def get_config_list(self, query_data):
-        query_name = "%" + query_data.get("formName") + "%" if query_data.get("formName") is not None else None
+        formName = query_data.get("formName")
+        if formName is None or formName == "":
+            query_name = None
+        else:
+            query_name = "%" + formName + "%"
+        # totle, data = self.db.query_page(
+        #     "select * from dynamic_report where (form_name like :1 or :2 is null or :3 = '') and (form_code = :4 or :5 is null or :6 ='' )",
+        #     (query_name, query_data.get("formName"), query_data.get("formName"), query_data.get("formCode"),
+        #      query_data.get("formCode"), query_data.get("formCode")))
+
         totle, data = self.db.query_page(
-            "select * from dynamic_report where (form_name like :1 or :2 is null or :3 = '') and (form_code = :4 or :5 is null or :6 ='' )",
-            (query_name, query_data.get("formName"), query_data.get("formName"), query_data.get("formCode"),
-             query_data.get("formCode"), query_data.get("formCode")))
+            "select * from dynamic_report where form_name like:1 and form_code =:2",
+            (query_name, query_data.get("formCode")))
+
         return {"totle": totle, "list": data}
 
     # 动态配置插入数据

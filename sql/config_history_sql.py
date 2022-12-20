@@ -13,10 +13,10 @@ class ConfigHistorySql:
 
     def __handle_time_format(self, item):
         history_start_time = datetime.datetime.strptime(item.get("historyStartTime") + " 00:00:00",
-                                               "%Y-%m-%d %H:%M:%S") if item.get(
+                                                        "%Y-%m-%d %H:%M:%S") if item.get(
             "historyStartTime") is not None else None
         history_end_time = datetime.datetime.strptime(item.get("historyEndTime") + " 00:00:00",
-                                             "%Y-%m-%d %H:%M:%S") if item.get(
+                                                      "%Y-%m-%d %H:%M:%S") if item.get(
             "historyEndTime") is not None else None
         return history_start_time, history_end_time
 
@@ -24,10 +24,15 @@ class ConfigHistorySql:
     @handle_time_format
     def get_config_history_list(self, query_data=None):
         history_start_time, history_end_time = self.__handle_time_format(query_data)
+        # totle, data = self.db.query_page(
+        #     "select * from dynamic_report_history where (form_code = :1 or :2 is null) and (last_flag = :3 or :4 is null) and (history_time > :5 or :6 is null) and (history_time < :7 or :8 is null) order by create_time desc",
+        #     (query_data.get("formCode"), query_data.get("formCode"), query_data.get("lastFlag"),
+        #      query_data.get("lastFlag"),history_start_time,history_start_time, history_end_time, history_end_time))
+
         totle, data = self.db.query_page(
-            "select * from dynamic_report_history where (form_code = :1 or :2 is null) and (last_flag = :3 or :4 is null) and (history_time > :5 or :6 is null) and (history_time < :7 or :8 is null) order by create_time desc",
-            (query_data.get("formCode"), query_data.get("formCode"), query_data.get("lastFlag"),
-             query_data.get("lastFlag"),history_start_time,history_start_time, history_end_time, history_end_time))
+            "select * from dynamic_report_history where form_code =:1  and last_flag =:2 and history_time >:3 and history_time <:4 order by create_time desc",
+            (query_data.get("formCode"), query_data.get("lastFlag"), history_start_time, history_end_time))
+
         return {"totle": totle, "list": data}
 
     # 动态配置历史插入数据
