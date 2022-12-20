@@ -142,8 +142,6 @@ class CommonDbPool(CommonDbPoolBase):
                 fields = [tup[0] for tup in cursor.description]
                 fields = [self.__str2Hump(i) for i in fields]
                 return all_count, [dict(zip(fields, row)) for row in fetch_data]
-            elif self.db_type == "dm":
-                pass
             else:
                 raise Exception("分页查询不支持数据库类型！！！")
         else:
