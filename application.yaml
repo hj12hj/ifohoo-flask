@@ -15,7 +15,7 @@ application:
   group: DEFAULT_GROUP
 
 
-logToFile: false
+logToFile: true
 
 #配置名称跟代码对应的
 dbInfo:
