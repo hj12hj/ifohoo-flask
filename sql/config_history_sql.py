@@ -31,7 +31,8 @@ class ConfigHistorySql:
 
         totle, data = self.db.query_page(
             "select * from dynamic_report_history where form_code =:1  and last_flag =:2 and history_time >:3 and history_time <:4 order by create_time desc",
-            (query_data.get("formCode"), query_data.get("lastFlag"), history_start_time, history_end_time))
+            (query_data.get("formCode"), query_data.get("lastFlag"), history_start_time, history_end_time),
+            handle_none=True)
 
         return {"totle": totle, "list": data}
 

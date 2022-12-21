@@ -26,7 +26,7 @@ class ConfigSql:
 
         totle, data = self.db.query_page(
             "select * from dynamic_report where form_name like:1 and form_code =:2",
-            (query_name, query_data.get("formCode")))
+            (query_name, query_data.get("formCode")),handle_none=True)
 
         return {"totle": totle, "list": data}
 

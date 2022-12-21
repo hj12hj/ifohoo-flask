@@ -9,7 +9,9 @@ class UserSql:
 
     # @handle_time_format
     def get_users(self):
-        totle, data = self.db.query_page("select * from test where user_id =:1", [1])
+        totle, data = self.db.query_page(
+            "select d.*,dr.* from dynamic_report_history d left join dynamic_report dr on d.form_code = dr.form_code where d.form_code =:1  and dr.form_name =:2 ",
+            [None, "2"], handle_none=True)
         return {"totle": totle, "list": data}
 
     def insert_user(self):
