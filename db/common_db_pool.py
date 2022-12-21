@@ -96,7 +96,7 @@ class CommonDbPool(CommonDbPoolBase):
             return data
 
     # 分页查询
-    def query_page(self, sql, data=None):
+    def query_page(self, sql, data=None, handle_none=False):
         current_app.logger.info("分页查询 sql --> " + sql)
         conn = local_connect.conn
         cursor = conn.cursor()
@@ -142,7 +142,8 @@ class CommonDbPool(CommonDbPoolBase):
                 raise Exception("分页查询不支持数据库类型！！！")
         else:
             # 处理查询条件为空情况
-            sql, data = self.__handle_query_str(sql, data)
+            if handle_none:
+                sql, data = self.__handle_query_str(sql, data)
             # 正则得到求总数的sql
             all_sql = self.__handle_limit_sql(sql)
             if self.db_type == "mysql" or self.db_type == "dm":
@@ -220,6 +221,7 @@ class CommonDbPool(CommonDbPoolBase):
             j += 1
         return res
 
+    # 查询参数处理  去了 查询条件为 None 的情况  todo  待优化
     def __handle_query_str(self, sql, param):
         current_app.logger.info("处理sql查询条件")
         current_app.logger.info("param --> " + str(param))
@@ -227,7 +229,7 @@ class CommonDbPool(CommonDbPoolBase):
         new_list = []
         for i in range(1, length):
             if param[i] is None or param[i] == '':
-                sql = re.sub("and [^0-9]*[=,<,>,like]:" + str(i+1), " ", sql)
+                sql = re.sub("and [^0-9]*[=,<,>,like]:" + str(i + 1), " ", sql)
             else:
                 new_list.append(param[i])
         if param[0] is None or param[0] == '':
@@ -241,6 +243,7 @@ class CommonDbPool(CommonDbPoolBase):
         current_app.logger.info("处理后的参数 --> " + str(new_list))
         return sql, new_list
 
+    # 分页处理
     def __handle_limit_sql(self, sql):
         match = re.match(".*(from.*)", sql)
         if match is None:
