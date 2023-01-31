@@ -33,7 +33,7 @@ class ConfigSql:
     # 动态配置插入数据
     def insert_config_info(self, config_data):
         dt = datetime.datetime.now()
-        staffId = local_token.token_info.get("staffId")
+        staffId = local_token.token_info.get("staffNo")
         self.db.execute_sql(
             "insert into dynamic_report (form_code, form_name, form_default_content, form_detail_content, version, creator, create_time, update_by, update_time) values (:1,:2,:3,:4,:5,:6,:7,:8,:9)",
             (config_data.get("formCode"), config_data.get("formName"), config_data.get("formDefaultContent"),

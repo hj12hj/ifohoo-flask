@@ -10,9 +10,9 @@ from registry import port
 from variables import local_token
 from variables.local_connetion import create_local_connect
 
-# import pymysql
-# import cx_Oracle
-# import dmPython
+import pymysql
+import cx_Oracle
+import dmPython
 
 
 app = Flask(__name__)
