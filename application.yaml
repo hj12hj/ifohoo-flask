@@ -1,6 +1,6 @@
 #nacos注册中心配置
 nacos:
-  serverAddr: 10.7.31.9:8848
+  serverAddr: 10.7.5.4:28100
   namespace: public
   username: nacos
   password: nacos
@@ -52,7 +52,7 @@ dbInfo:
     port: 5236
 
 redis:
-  host: 10.55.254.135
+  host: 10.55.255.54
   port: 6379
   password: 123456
   db: 7

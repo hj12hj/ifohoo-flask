@@ -39,7 +39,7 @@ class ConfigHistorySql:
     # 动态配置历史插入数据
     def insert_config_history(self, config_data):
         dt = datetime.datetime.now()
-        staffId = local_token.token_info.get("staffId")
+        staffId = local_token.token_info.get("staffNo")
         templateId = str(uuid.uuid1())
         self.db.execute_sql(
             "insert into dynamic_report_history (template_id, form_code, form_default_content, form_detail_content, history_time,form_version, last_flag, version, creator, create_time, update_by, update_time) values (:1,:2,:3,:4,:5,:6,:7,:8,:9,:10,:11,:12)",
