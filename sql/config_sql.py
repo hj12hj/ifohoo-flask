@@ -19,34 +19,41 @@ class ConfigSql:
             query_name = None
         else:
             query_name = "%" + formName + "%"
-        # totle, data = self.db.query_page(
-        #     "select * from dynamic_report where (form_name like :1 or :2 is null or :3 = '') and (form_code = :4 or :5 is null or :6 ='' )",
-        #     (query_name, query_data.get("formName"), query_data.get("formName"), query_data.get("formCode"),
-        #      query_data.get("formCode"), query_data.get("formCode")))
 
-        totle, data = self.db.query_page(
-            "select * from dynamic_report where form_name like:1 and form_code =:2",
-            (query_name, query_data.get("formCode")),handle_none=True)
+        organCode = local_token.token_info.get("organCode")
+        total, data = self.db.query_page(
+            "select * from dynamic_report where form_name like:1 and form_code =:2 and organ_code =:3",
+            (query_name, query_data.get("formCode"), organCode), handle_none=True)
 
-        return {"totle": totle, "list": data}
+        return {"total": total, "list": data}
 
-    # 动态配置插入数据
+    # 动态配置插入数据  2.0
+    # def insert_config_info(self, config_data):
+    #     dt = datetime.datetime.now()
+    #     staffId = local_token.token_info.get("staffNo")
+    #     self.db.execute_sql(
+    #         "insert into dynamic_report (form_code, form_name, form_default_content, form_detail_content, version, creator, create_time, update_by, update_time) values (:1,:2,:3,:4,:5,:6,:7,:8,:9)",
+    #         (config_data.get("formCode"), config_data.get("formName"), config_data.get("formDefaultContent"),
+    #          config_data.get("formDetailContent"), 1, staffId, dt,
+    #          staffId, dt))
+
+    # 动态配置插入数据  2.5 增加机构
     def insert_config_info(self, config_data):
         dt = datetime.datetime.now()
         staffId = local_token.token_info.get("staffNo")
+        organCode = local_token.token_info.get("organCode")
         self.db.execute_sql(
-            "insert into dynamic_report (form_code, form_name, form_default_content, form_detail_content, version, creator, create_time, update_by, update_time) values (:1,:2,:3,:4,:5,:6,:7,:8,:9)",
-            (config_data.get("formCode"), config_data.get("formName"), config_data.get("formDefaultContent"),
-             config_data.get("formDetailContent"), 1, staffId, dt,
-             staffId, dt))
+            "insert into dynamic_report (organ_code, form_code,form_name ,form_default_data, form_detail_data, row_version_no, last_operate_staff_code, last_operate_datetime) values (:1,:2,:3,:4,:5,:6,:7,:8)",
+            (organCode, config_data.get("formCode"), config_data.get("formName"), config_data.get("formDefaultData"),
+             config_data.get("formDetailData"), 1, staffId, dt))
 
     # 动态配置更新数据
     def update_config_info(self, config_data):
-        staffId = local_token.token_info.get("staffId")
+        staffNo = local_token.token_info.get("staffNo")
         self.db.execute_sql(
-            "update dynamic_report set  form_default_content=:1 , form_name = :2,form_detail_content=:3,update_by=:4 where form_code = :5;",
-            (config_data.get("formDefaultContent"), config_data.get("formName"), config_data.get("formDetailContent"),
-             staffId, config_data.get("formCode")))
+            "update dynamic_report set  form_default_data=:1 ,form_detail_data=:2,last_operate_staff_code=:3,form_name=:4 ,row_version_no = row_version_no +1 where form_code = :5",
+            (config_data.get("formDefaultData"), config_data.get("formDetailData"),
+             staffNo, config_data.get("formName"), config_data.get("formCode")))
 
     # 根据主键查找数据
     def find_by_id(self, form_code):

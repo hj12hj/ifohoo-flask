@@ -8,11 +8,7 @@ class CostPositionSql:
         self.db = db
 
     def get_cost_position_list(self, query_data):
-        positionNo = query_data.get("positionNo")
-        if positionNo is None or positionNo == "":
-            positionNo = None
-
-        totle, data = self.db.query_page("select * from COST_POSITION_SECURITY_INVEST where POSITION_NO =:1",
-                                         (positionNo,),
+        total, data = self.db.query_page("select * from cost_position_security_invest where position_no =:1",
+                                         (query_data.get("positionNo"),),
                                          handle_none=True)
-        return {"totle": totle, "list": data}
+        return {"total": total, "list": data}

@@ -1,0 +1,198 @@
+{
+  "config": {
+    "rowKey": "positionNo"
+  },
+  "columns": [
+    {
+      "title": "持仓表的唯一编号",
+      "dataIndex": "positionNo",
+      "hideInTable": true,
+      "type": "text"
+    },
+    {
+      "title": "持仓表的唯一编号",
+      "dataIndex": "positionNo",
+      "hideInTable": false,
+      "fohooDataTypeValue": "0",
+      "fohooCharWidth": 16
+    },
+    {
+      "title": "结算日期",
+      "dataIndex": "settleDate",
+      "hideInTable": false,
+      "fohooDataTypeValue": "0",
+      "fohooCharWidth": 16
+    },
+    {
+      "title": "机构代码",
+      "dataIndex": "organCode",
+      "ellipsis": true,
+      "fohooDataTypeValue": "0",
+      "fohooCharWidth": 20,
+      "fixed": "left"
+    },
+    {
+      "title": "产品",
+      "dataIndex": "productCode",
+      "fohooDataTypeValue": "0",
+      "fohooCharWidth": 16
+    },
+    {
+      "title": "产品账户",
+      "dataIndex": "productAccountCode",
+      "fohooDataTypeValue": "0",
+      "fohooCharWidth": 3
+    },
+    {
+      "title": "净价全价标志",
+      "dataIndex": "netFullFlagCode",
+      "fohooDataTypeValue": "0",
+      "fohooCharWidth": 24
+    },
+    {
+      "title": "业务类型",
+      "dataIndex": "bizTypeCode",
+      "fohooDataTypeValue": "0",
+      "fohooCharWidth": 24
+    },
+    {
+      "title": "资产负债类别",
+      "dataIndex": "assetLiabTypeCode",
+      "fohooDataTypeValue": "0",
+      "fohooCharWidth": 24
+    },
+    {
+      "title": "交易场所代码",
+      "dataIndex": "exchangeCode",
+      "fohooDataTypeValue": "0",
+      "fohooCharWidth": 24
+    },
+    {
+      "title": "证券代码",
+      "dataIndex": "secuGlobalCode",
+      "fohooDataTypeValue": "0",
+      "fohooCharWidth": 24
+    },
+    {
+      "title": "证券名称",
+      "dataIndex": "secuName",
+      "fohooDataTypeValue": "0",
+      "fohooCharWidth": 24
+    },
+    {
+      "title": "证券类别",
+      "dataIndex": "secuCategoryCode",
+      "fohooDataTypeValue": "0",
+      "fohooCharWidth": 24
+    },
+    {
+      "title": "面值",
+      "dataIndex": "facevaluePrice",
+      "fohooDataTypeValue": "0",
+      "fohooCharWidth": 24
+    },
+    {
+      "title": "交易币",
+      "dataIndex": "tradeCurrencyCode",
+      "fohooDataTypeValue": "0",
+      "fohooCharWidth": 24
+    },
+    {
+      "title": "结算币",
+      "dataIndex": "settleCurrencyCode",
+      "fohooDataTypeValue": "0",
+      "fohooCharWidth": 24
+    },
+    {
+      "title": "授信对手方代码",
+      "dataIndex": "creditCpCode",
+      "fohooDataTypeValue": "0",
+      "fohooCharWidth": 24
+    },
+    {
+      "title": "授信对手方简称",
+      "dataIndex": "creditCpName",
+      "fohooDataTypeValue": "0",
+      "fohooCharWidth": 24
+    },
+    {
+      "title": "汇率",
+      "dataIndex": "forexRate",
+      "fohooDataTypeValue": "0",
+      "fohooCharWidth": 24
+    },
+    {
+      "title": "最近结转日期",
+      "dataIndex": "positionCarryDate",
+      "fohooDataTypeValue": "10",
+      "fohooCharWidth": 24
+    },
+    {
+      "title": "建仓日期",
+      "dataIndex": "positionCreateDate",
+      "fohooDataTypeValue": "0",
+      "fohooCharWidth": 24
+    },
+    {
+      "title": "当日买入数量",
+      "dataIndex": "openQty",
+      "fohooDataTypeValue": "1",
+      "fohooCharWidth": 24
+    },
+    {
+      "title": "当日买入的成交均价",
+      "dataIndex": "openNetPrice",
+      "fohooDataTypeValue": "1",
+      "fohooCharWidth": 24
+    },
+    {
+      "title": "当日买入的成交金额",
+      "dataIndex": "openNetAmt",
+      "fohooDataTypeValue": "1",
+      "fohooCharWidth": 24
+    },
+    {
+      "title": "当日买入的的百元利息",
+      "dataIndex": "openInterestPrice",
+      "fohooDataTypeValue": "1",
+      "fohooCharWidth": 24
+    },
+    {
+      "title": "当日买入的利息金额",
+      "dataIndex": "openInterestAmt",
+      "fohooDataTypeValue": "1",
+      "fohooCharWidth": 24
+    },
+    {
+      "title": "当日买入的交易费用",
+      "dataIndex": "openFeeAmt",
+      "fohooDataTypeValue": "1",
+      "fohooCharWidth": 24
+    },
+     {
+      "title": "当日买入的结算金额",
+      "dataIndex": "openSettleAmt",
+      "fohooDataTypeValue": "1",
+      "fohooCharWidth": 24
+    },
+     {
+      "title": "当日卖出数量",
+      "dataIndex": "closeQty",
+      "fohooDataTypeValue": "1",
+      "fohooCharWidth": 24
+    },
+     {
+      "title": "当日卖出的成交均价",
+      "dataIndex": "closeNetPrice",
+      "fohooDataTypeValue": "1",
+      "fohooCharWidth": 24
+    },
+     {
+      "title": "当日卖出的成交金额",
+      "dataIndex": "closeNetAmt",
+      "fohooDataTypeValue": "1",
+      "fohooCharWidth": 24
+    }
+  ],
+  "url": "/report/costPosition"
+}
