@@ -1,3 +1,6 @@
+import json
+
+from feign.data_center_feign_client import findCurrencyMap
 from sql import cost_position_sql
 
 """
@@ -15,4 +18,17 @@ class CostPositionService:
     """
 
     def get_cost_position_list(self, query_data):
-        return self.sql.get_cost_position_list(query_data)
+        currencyMap = json.loads(findCurrencyMap()).get("returnData")
+        returnData = self.sql.get_cost_position_list(query_data)
+        self.__transform_name(returnData=returnData, currencyMap=currencyMap)
+
+        return returnData
+
+    """
+    转换名称
+    """
+
+    def __transform_name(self, returnData, currencyMap):
+        for data in returnData.get("list"):
+            data["tradeCurrencyCode"] = currencyMap.get(data["tradeCurrencyCode"])
+            data["settleCurrencyCode"] = currencyMap.get(data["settleCurrencyCode"])

@@ -16,7 +16,7 @@ class CostPositionSql:
     """
 
     def get_cost_position_list(self, query_data):
-        total, data = self.db.query_page("select * from cost_position_security_invest where position_no =:1",
-                                         (query_data.get("positionNo"),),
+        total, data = self.db.query_page("select * from cost_position_security_invest where settle_date =:1",
+                                         (query_data.get("settleDate"),),
                                          handle_none=True)
         return {"total": total, "list": data}

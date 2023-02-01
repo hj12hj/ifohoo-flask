@@ -41,6 +41,7 @@ def before_request():
         local_token.token_info = json.loads(info)
 
 
+
 # 注册蓝图列表
 for blueprint in blueprint_list:
     app.register_blueprint(blueprint)
