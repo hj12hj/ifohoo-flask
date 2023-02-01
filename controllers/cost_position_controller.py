@@ -1,4 +1,3 @@
-
 from flask import Blueprint
 
 from aop import handle_web_result
@@ -8,6 +7,10 @@ from service import costPositionService
 
 # 每日持仓
 cost_position = Blueprint("cost_position", __name__)
+
+"""
+    每日持仓列表查询
+"""
 
 
 @cost_position.route("/costPosition/list", methods=["GET"])

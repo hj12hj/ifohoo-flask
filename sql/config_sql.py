@@ -64,4 +64,5 @@ class ConfigSql:
         self.db.execute_sql("delete from dynamic_report where form_code = :1", (form_code,))
 
     def find_name_map(self):
-        return self.db.query_all("select form_code,form_name from dynamic_report")
+        organCode = local_token.token_info.get("organCode")
+        return self.db.query_all("select form_code,form_name from dynamic_report where organ_code =:1", (organCode,))
