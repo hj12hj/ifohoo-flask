@@ -30,7 +30,7 @@ class ConfigService:
         version = config_history_sql.get_last_form_version_by_form_code(form_code=form_code).get("lastversion")
         version = 1 if version is None else version + 1
         # 3.将配置信息插入到历史表中
-        data["formVersion"] = version
+        data["formVersionNo"] = version
         config_history_sql.insert_config_history(data)
 
     @transaction

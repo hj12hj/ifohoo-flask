@@ -1,0 +1,414 @@
+{
+  "config": {
+    "rowKey": "positionNo"
+  },
+  "columns": [
+    {
+      "title": "持仓表的唯一编号",
+      "dataIndex": "positionNo",
+      "hideInTable": true,
+      "type": "text"
+    },
+    {
+      "title": "持仓表的唯一编号",
+      "dataIndex": "positionNo",
+      "hideInTable": false,
+      "fohooDataTypeValue": "0",
+      "fohooCharWidth": 16
+    },
+    {
+      "title": "结算日期",
+      "dataIndex": "settleDate",
+      "hideInTable": false,
+      "fohooDataTypeValue": "0",
+      "fohooCharWidth": 16
+    },
+    {
+      "title": "机构代码",
+      "dataIndex": "organCode",
+      "ellipsis": true,
+      "fohooDataTypeValue": "0",
+      "fohooCharWidth": 20,
+      "fixed": "left"
+    },
+    {
+      "title": "产品",
+      "dataIndex": "productCode",
+      "fohooDataTypeValue": "0",
+      "fohooCharWidth": 16
+    },
+    {
+      "title": "产品账户",
+      "dataIndex": "productAccountCode",
+      "fohooDataTypeValue": "0",
+      "fohooCharWidth": 3
+    },
+    {
+      "title": "净价全价标志",
+      "dataIndex": "netFullFlagCode",
+      "fohooDataTypeValue": "0",
+      "fohooCharWidth": 24
+    },
+    {
+      "title": "业务类型",
+      "dataIndex": "bizTypeCode",
+      "fohooDataTypeValue": "0",
+      "fohooCharWidth": 24
+    },
+    {
+      "title": "资产负债类别",
+      "dataIndex": "assetLiabTypeCode",
+      "fohooDataTypeValue": "0",
+      "fohooCharWidth": 24
+    },
+    {
+      "title": "交易场所代码",
+      "dataIndex": "exchangeCode",
+      "fohooDataTypeValue": "0",
+      "fohooCharWidth": 24
+    },
+    {
+      "title": "证券代码",
+      "dataIndex": "secuGlobalCode",
+      "fohooDataTypeValue": "0",
+      "fohooCharWidth": 24
+    },
+    {
+      "title": "证券名称",
+      "dataIndex": "secuName",
+      "fohooDataTypeValue": "0",
+      "fohooCharWidth": 24
+    },
+    {
+      "title": "证券类别",
+      "dataIndex": "secuCategoryCode",
+      "fohooDataTypeValue": "0",
+      "fohooCharWidth": 24
+    },
+    {
+      "title": "面值",
+      "dataIndex": "facevaluePrice",
+      "fohooDataTypeValue": "0",
+      "fohooCharWidth": 24
+    },
+    {
+      "title": "交易币",
+      "dataIndex": "tradeCurrencyCode",
+      "fohooDataTypeValue": "0",
+      "fohooCharWidth": 24
+    },
+    {
+      "title": "结算币",
+      "dataIndex": "settleCurrencyCode",
+      "fohooDataTypeValue": "0",
+      "fohooCharWidth": 24
+    },
+    {
+      "title": "授信对手方代码",
+      "dataIndex": "creditCpCode",
+      "fohooDataTypeValue": "0",
+      "fohooCharWidth": 24
+    },
+    {
+      "title": "授信对手方简称",
+      "dataIndex": "creditCpName",
+      "fohooDataTypeValue": "0",
+      "fohooCharWidth": 24
+    },
+    {
+      "title": "汇率",
+      "dataIndex": "forexRate",
+      "fohooDataTypeValue": "0",
+      "fohooCharWidth": 24
+    },
+    {
+      "title": "最近结转日期",
+      "dataIndex": "positionCarryDate",
+      "fohooDataTypeValue": "10",
+      "fohooCharWidth": 24
+    },
+    {
+      "title": "建仓日期",
+      "dataIndex": "positionCreateDate",
+      "fohooDataTypeValue": "0",
+      "fohooCharWidth": 24
+    },
+    {
+      "title": "当日买入数量",
+      "dataIndex": "openQty",
+      "fohooDataTypeValue": "1",
+      "fohooCharWidth": 24
+    },
+    {
+      "title": "当日买入的成交均价",
+      "dataIndex": "openNetPrice",
+      "fohooDataTypeValue": "1",
+      "fohooCharWidth": 24
+    },
+    {
+      "title": "当日买入的成交金额",
+      "dataIndex": "openNetAmt",
+      "fohooDataTypeValue": "1",
+      "fohooCharWidth": 24
+    },
+    {
+      "title": "当日买入的的百元利息",
+      "dataIndex": "openInterestPrice",
+      "fohooDataTypeValue": "1",
+      "fohooCharWidth": 24
+    },
+    {
+      "title": "当日买入的利息金额",
+      "dataIndex": "openInterestAmt",
+      "fohooDataTypeValue": "1",
+      "fohooCharWidth": 24
+    },
+    {
+      "title": "当日买入的交易费用",
+      "dataIndex": "openFeeAmt",
+      "fohooDataTypeValue": "1",
+      "fohooCharWidth": 24
+    },
+    {
+      "title": "当日买入的结算金额",
+      "dataIndex": "openSettleAmt",
+      "fohooDataTypeValue": "1",
+      "fohooCharWidth": 24
+    },
+    {
+      "title": "当日卖出数量",
+      "dataIndex": "closeQty",
+      "fohooDataTypeValue": "1",
+      "fohooCharWidth": 24
+    },
+    {
+      "title": "当日卖出的成交均价",
+      "dataIndex": "closeNetPrice",
+      "fohooDataTypeValue": "1",
+      "fohooCharWidth": 24
+    },
+    {
+      "title": "当日卖出的成交金额",
+      "dataIndex": "closeNetAmt",
+      "fohooDataTypeValue": "1",
+      "fohooCharWidth": 24
+    },
+    {
+      "title": "当日卖出的的百元利息",
+      "dataIndex": "closeInterestPrice",
+      "fohooDataTypeValue": "1",
+      "fohooCharWidth": 24
+    },
+    {
+      "title": "当日卖出的利息金额",
+      "dataIndex": "closeInterestAmt",
+      "fohooDataTypeValue": "1",
+      "fohooCharWidth": 24
+    },
+    {
+      "title": "当日卖出的交易费用",
+      "dataIndex": "closeFeeAmt",
+      "fohooDataTypeValue": "1",
+      "fohooCharWidth": 24
+    },
+    {
+      "title": "当日卖出的结算金额",
+      "dataIndex": "closeSettleAmt",
+      "fohooDataTypeValue": "1",
+      "fohooCharWidth": 24
+    },
+    {
+      "title": "当日送股的数量",
+      "dataIndex": "rightsQty",
+      "fohooDataTypeValue": "1",
+      "fohooCharWidth": 24
+    },
+    {
+      "title": "当日派息\\兑息的金额",
+      "dataIndex": "rightsAmt",
+      "fohooDataTypeValue": "1",
+      "fohooCharWidth": 24
+    },
+    {
+      "title": "当日兑付数量",
+      "dataIndex": "cashQty",
+      "fohooDataTypeValue": "1",
+      "fohooCharWidth": 24
+    },
+    {
+      "title": "当日兑付的成交金额",
+      "dataIndex": "cashNetAmt",
+      "fohooDataTypeValue": "1",
+      "fohooCharWidth": 24
+    },
+    {
+      "title": "当日兑付的利息金额",
+      "dataIndex": "cashInterestAmt",
+      "fohooDataTypeValue": "1",
+      "fohooCharWidth": 24
+    },
+    {
+      "title": "持仓数量",
+      "dataIndex": "positionQty",
+      "fohooDataTypeValue": "1",
+      "fohooCharWidth": 24
+    },
+    {
+      "title": "投资成本均价",
+      "dataIndex": "inveCosPrice",
+      "fohooDataTypeValue": "1",
+      "fohooCharWidth": 24
+    },
+    {
+      "title": "投资成本金额",
+      "dataIndex": "inveCost",
+      "fohooDataTypeValue": "1",
+      "fohooCharWidth": 24
+    },
+    {
+      "title": "最近建仓的投资实现收益",
+      "dataIndex": "recentInveRealProfit",
+      "fohooDataTypeValue": "1",
+      "fohooCharWidth": 24
+    },
+    {
+      "title": "累计建仓的投资实现收益",
+      "dataIndex": "accumInveRealProfit",
+      "fohooDataTypeValue": "1",
+      "fohooCharWidth": 24
+    },
+    {
+      "title": "最新价",
+      "dataIndex": "inveMarketPrice",
+      "fohooDataTypeValue": "1",
+      "fohooCharWidth": 24
+    },
+    {
+      "title": "最新价",
+      "dataIndex": "inveMarketPrice",
+      "fohooDataTypeValue": "1",
+      "fohooCharWidth": 24
+    },
+    {
+      "title": "市值",
+      "dataIndex": "inveMarketAmt",
+      "fohooDataTypeValue": "1",
+      "fohooCharWidth": 24
+    },
+    {
+      "title": "投资浮动盈亏",
+      "dataIndex": "inveFoatProfit",
+      "fohooDataTypeValue": "1",
+      "fohooCharWidth": 24
+    },
+    {
+      "title": "最近建仓的投资总收益",
+      "dataIndex": "recentInveGrossProfit",
+      "fohooDataTypeValue": "1",
+      "fohooCharWidth": 24
+    },
+    {
+      "title": "累计建仓的投资总收益",
+      "dataIndex": "accumInveGrossProfit",
+      "fohooDataTypeValue": "1",
+      "fohooCharWidth": 24
+    },
+    {
+      "title": "百元利息均价",
+      "dataIndex": "inteCostPrice",
+      "fohooDataTypeValue": "1",
+      "fohooCharWidth": 24
+    },
+    {
+      "title": "利息金额",
+      "dataIndex": "inteCost",
+      "fohooDataTypeValue": "1",
+      "fohooCharWidth": 24
+    },
+    {
+      "title": "最近建仓的利息实现收益",
+      "dataIndex": "recentInteRealProfit",
+      "fohooDataTypeValue": "1",
+      "fohooCharWidth": 24
+    },
+    {
+      "title": "累计建仓的利息实现收益",
+      "dataIndex": "accumInteRealProfit",
+      "fohooDataTypeValue": "1",
+      "fohooCharWidth": 24
+    },
+    {
+      "title": "最新百元利息",
+      "dataIndex": "inteMarketPrice",
+      "fohooDataTypeValue": "1",
+      "fohooCharWidth": 24
+    },
+    {
+      "title": "最新利息市值",
+      "dataIndex": "inteMarketAmt",
+      "fohooDataTypeValue": "1",
+      "fohooCharWidth": 24
+    },
+    {
+      "title": "利息浮动盈亏",
+      "dataIndex": "inteFloatProfit",
+      "fohooDataTypeValue": "1",
+      "fohooCharWidth": 24
+    },
+    {
+      "title": "最近建仓的利息总收益",
+      "dataIndex": "recentInteGrossProfit",
+      "fohooDataTypeValue": "1",
+      "fohooCharWidth": 24
+    },
+    {
+      "title": "累计建仓的利息总收益",
+      "dataIndex": "accumInteGrossProfit",
+      "fohooDataTypeValue": "1",
+      "fohooCharWidth": 24
+    },
+    {
+      "title": "最近建仓的费用损益",
+      "dataIndex": "recentFeeProfit",
+      "fohooDataTypeValue": "1",
+      "fohooCharWidth": 24
+    },
+    {
+      "title": "累计建仓的费用损益",
+      "dataIndex": "accumFeeProfit",
+      "fohooDataTypeValue": "1",
+      "fohooCharWidth": 24
+    },
+    {
+      "title": "最近建仓的分红收益",
+      "dataIndex": "recentRightsProfit",
+      "fohooDataTypeValue": "1",
+      "fohooCharWidth": 24
+    },
+    {
+      "title": "累计建仓的分红收益",
+      "dataIndex": "accumRightsProfit",
+      "fohooDataTypeValue": "1",
+      "fohooCharWidth": 24
+    },
+    {
+      "title": "最近建仓的处置收益",
+      "dataIndex": "recentDisposalProfit",
+      "fohooDataTypeValue": "1",
+      "fohooCharWidth": 24
+    },
+    {
+      "title": "累计建仓的处置收益",
+      "dataIndex": "accumDisposalProfit",
+      "fohooDataTypeValue": "1",
+      "fohooCharWidth": 24
+    },
+    {
+      "title": "清仓日期",
+      "dataIndex": "positionClearDate",
+      "fohooDataTypeValue": "1",
+      "fohooCharWidth": 24
+    }
+  ],
+  "url": "/report/costPosition"
+}
