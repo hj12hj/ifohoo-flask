@@ -2,6 +2,7 @@ from flask import Blueprint
 
 from aop import handle_web_result
 from aop.handle_web_request import handle_web_request
+from feign.data_center_feign_client import findCurrencyMap
 from returnmessage import ReturnMessage
 from service import costPositionService
 

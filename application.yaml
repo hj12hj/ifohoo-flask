@@ -9,7 +9,7 @@ nacos:
 
 #本地服务信息配置
 application:
-  name: report
+  name: app-report
   port: 8080
   ip: 10.7.31.9
   group: DEFAULT_GROUP
