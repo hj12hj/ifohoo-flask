@@ -4,4 +4,6 @@ from controllers.cost_position_controller import cost_position
 from controllers.log_controller import log
 
 # 注册蓝图列表
-blueprint_list = [log, config, config_history, cost_position]
+from controllers.bond_report_controller import bond_report
+
+blueprint_list = [log, config, config_history, cost_position, bond_report]
