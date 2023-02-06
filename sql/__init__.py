@@ -1,3 +1,4 @@
+from sql.bond_report_sql import BondReportSql
 from sql.user_sql import UserSql
 from sql.config_sql import ConfigSql
 from sql.config_history_sql import ConfigHistorySql
@@ -9,3 +10,4 @@ config_sql = ConfigSql()
 config_history_sql = ConfigHistorySql()
 cost_position_sql = CostPositionSql()
 
+bond_report_sql = BondReportSql()
