@@ -1,3 +1,4 @@
+from service.assetDetail_report_service import AssetDetailReportService
 from service.config_history_service import ConfigHistoryService
 from service.bond_report_service import BondReportService
 from service.user_service import UserService
@@ -10,3 +11,4 @@ historyService = ConfigHistoryService()
 costPositionService = CostPositionService()
 
 bondReportService = BondReportService()
+assetDetailReportService = AssetDetailReportService()
