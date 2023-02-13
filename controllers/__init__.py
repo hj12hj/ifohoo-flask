@@ -8,4 +8,5 @@ from controllers.bond_report_controller import bond_report
 from controllers.income_calculation_report_controller import income_calculation_report
 from controllers.insurance_profit_calculation_controller import insurance_profit_calculation
 
-blueprint_list = [log, config, config_history, cost_position, bond_report, income_calculation_report, insurance_profit_calculation]
+blueprint_list = [log, config, config_history, cost_position, bond_report, assetDetail_report, income_calculation_report, insurance_profit_calculation]
+

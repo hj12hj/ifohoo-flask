@@ -6,6 +6,7 @@ from returnmessage import ReturnMessage
 
 # 财司收益测算表
 from service import incomeCalculationReportService
+from variables import local_token
 
 income_calculation_report = Blueprint("income_calculation_report", __name__)
 
@@ -18,5 +19,10 @@ income_calculation_report = Blueprint("income_calculation_report", __name__)
 @handle_web_request
 @handle_web_result
 def get_bond_report_list(**kwargs):
-    print(kwargs)
-    return ReturnMessage(data=incomeCalculationReportService.income_calculation_report_list(query_data=kwargs.get("params")))
+    # params是个不可修改的dict，所以需要新建一个dict添加机构号
+    params = kwargs.get("params")
+    query_data = {"organCode":local_token.token_info["organCode"]}
+    # 遍历赋值
+    for key in params:
+        query_data[key] = params[key]
+    return ReturnMessage(data=incomeCalculationReportService.income_calculation_report_list(query_data))
