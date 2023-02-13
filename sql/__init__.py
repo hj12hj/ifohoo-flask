@@ -15,5 +15,4 @@ cost_position_sql = CostPositionSql()
 bond_report_sql = BondReportSql()
 assetDetail_report_sql = AssetDetailReportSql()
 
-income_calculation_report_sql = IncomeCalculationReportSql();
-sql/__init__.py
+income_calculation_report_sql = IncomeCalculationReportSql()
