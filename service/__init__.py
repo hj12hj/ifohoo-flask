@@ -13,4 +13,3 @@ costPositionService = CostPositionService()
 bondReportService = BondReportService()
 assetDetailReportService = AssetDetailReportService()
 incomeCalculationReportService = IncomeCalculationReportService()
-service/__init__.py
