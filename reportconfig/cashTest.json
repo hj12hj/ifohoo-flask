@@ -1,0 +1,132 @@
+{
+  "config": {
+    "rowKey": "cashTestNo"
+  },
+  "columns": [
+    {
+      "title": "持仓表的唯一编号",
+      "dataIndex": "cashTestNo",
+      "hideInTable": true,
+      "type": "text"
+    },
+    {
+      "title": "2022年9月",
+      "dataIndex": "111",
+      "children":[
+        {
+          "title": "类别",
+          "dataIndex": "categoryType",
+          "hideInTable": false,
+          "fohooDataTypeValue": "0",
+          "fohooCharWidth": 16
+        },
+        {
+          "title": "说明",
+          "dataIndex": "description",
+          "hideInTable": false,
+          "fohooDataTypeValue": "0",
+          "fohooCharWidth": 16
+        },
+        {
+          "title": "系数",
+          "dataIndex": "rate",
+          "ellipsis": true,
+          "fohooDataTypeValue": "0",
+          "fohooCharWidth": 20,
+          "fixed": "left"
+        }
+      ]
+    },
+    {
+      "title": "2022年9月30日",
+      "dataIndex": "222",
+      "children": [
+        {
+          "title": "金额",
+          "dataIndex": "oneAmount",
+          "fohooDataTypeValue": "0",
+          "fohooCharWidth": 16
+        },
+        {
+          "title": "折算金额",
+          "dataIndex": "oneRateAmt",
+          "fohooDataTypeValue": "0",
+          "fohooCharWidth": 3
+        }
+      ]
+    },
+    {
+      "title": "2022年12月31日",
+      "dataIndex": "333",
+      "children": [
+        {
+          "title": "金额",
+          "dataIndex": "twoAmount",
+          "fohooDataTypeValue": "0",
+          "fohooCharWidth": 16
+        },
+        {
+          "title": "折算金额",
+          "dataIndex": "twoRateAmt",
+          "fohooDataTypeValue": "0",
+          "fohooCharWidth": 3
+        }
+      ]
+    },
+    {
+      "title": "2023年3月31日",
+      "dataIndex": "444",
+      "children": [
+        {
+          "title": "金额",
+          "dataIndex": "threeAmount",
+          "fohooDataTypeValue": "0",
+          "fohooCharWidth": 16
+        },
+        {
+          "title": "折算金额",
+          "dataIndex": "threeRateAmt",
+          "fohooDataTypeValue": "0",
+          "fohooCharWidth": 3
+        }
+      ]
+    },
+    {
+      "title": "2023年6月30日",
+      "dataIndex": "555",
+      "children": [
+        {
+          "title": "金额",
+          "dataIndex": "fourAmount",
+          "fohooDataTypeValue": "0",
+          "fohooCharWidth": 16
+        },
+        {
+          "title": "折算金额",
+          "dataIndex": "fourRateAmt",
+          "fohooDataTypeValue": "0",
+          "fohooCharWidth": 3
+        }
+      ]
+    },
+    {
+      "title": "2023年9月30日",
+      "dataIndex": "666",
+      "children": [
+        {
+          "title": "金额",
+          "dataIndex": "fiveAmount",
+          "fohooDataTypeValue": "0",
+          "fohooCharWidth": 16
+        },
+        {
+          "title": "折算金额",
+          "dataIndex": "fiveRateAmt",
+          "fohooDataTypeValue": "0",
+          "fohooCharWidth": 3
+        }
+      ]
+    }
+  ],
+  "url": "/app-report/cashTestReport"
+}

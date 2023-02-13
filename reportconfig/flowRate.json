@@ -1,0 +1,65 @@
+{
+  "config": {
+    "rowKey": "flowRateNo"
+  },
+  "columns": [
+    {
+      "title": "持仓表的唯一编号",
+      "dataIndex": "flowRateNo",
+      "hideInTable": true,
+      "type": "text"
+    },
+    {
+      "title": "项目",
+      "dataIndex": "productName",
+      "hideInTable": false,
+      "fohooDataTypeValue": "0",
+      "fohooCharWidth": 16
+    },
+    {
+      "title": "账面价值",
+      "dataIndex": "marketValueAmt",
+      "hideInTable": false,
+      "fohooDataTypeValue": "0",
+      "fohooCharWidth": 16
+    },
+    {
+      "title": "交易类现金流",
+      "dataIndex": "dealCashFlow",
+      "hideInTable": false,
+      "fohooDataTypeValue": "0",
+      "fohooCharWidth": 20
+    },
+    {
+      "title": "未标明到期日的现金流",
+      "dataIndex": "undueCashFlow",
+      "fohooDataTypeValue": "0",
+      "fohooCharWidth": 16
+    },
+    {
+      "title": "预期现金流入或流出（非折现）",
+      "dataIndex": "111",
+      "children": [
+         {
+            "title": "3个月内",
+            "dataIndex": "threadMon",
+            "fohooDataTypeValue": "0",
+            "fohooCharWidth": 3
+          },
+          {
+            "title": "1年内",
+            "dataIndex": "oneYear",
+            "fohooDataTypeValue": "0",
+            "fohooCharWidth": 24
+          },
+          {
+            "title": "1年以上",
+            "dataIndex": "moreOneYear",
+            "fohooDataTypeValue": "0",
+            "fohooCharWidth": 24
+          }
+      ]
+    }
+  ],
+  "url": "/app-report/flowRateReport"
+}
