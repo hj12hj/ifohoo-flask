@@ -1,0 +1,59 @@
+{
+  "config": {
+    "rowKey": "rowKey"
+  },
+  "columns": [
+    {
+      "title": "发生日期",
+      "dataIndex": "occurDate",
+      "hideInTable": true,
+      "valueType": "dateRange",
+      "initialValue": [
+        moment().month(moment().month()-1).endOf('month'),
+        moment()
+      ],
+      "search": {
+        "transform": (value)=> {
+          if(value) {
+            return {
+              "startDate": value[0],
+              "endDate": value[1]
+            };
+          }
+        }
+      }
+    },
+    {
+      "title": "品种",
+      "dataIndex": "productName",
+      "hideInTable": false,
+      "fohooDataTypeValue": "0",
+      "fohooCharWidth": 24
+    },
+    {
+      "title": "加权占用额",
+      "dataIndex": "weightedOccupancyAmt",
+      "fohooDataTypeValue": "0",
+      "fohooCharWidth": 24
+    },
+    {
+      "title": "收益额",
+      "dataIndex": "incomeAmt",
+      "fohooDataTypeValue": "0",
+      "fohooCharWidth": 24
+    },
+    {
+      "title": "利率",
+      "dataIndex": "interestRate",
+      "fohooDataTypeValue": "0",
+      "fohooCharWidth": 24
+    },
+    {
+      "title": "规模占比",
+      "dataIndex": "scaleRatio",
+      "fohooDataTypeValue": "0",
+      "fohooCharWidth": 24
+    }
+  ],
+  "url": "/app-report/incomeCalculationReport"
+}

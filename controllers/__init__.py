@@ -6,5 +6,5 @@ from controllers.cost_position_controller import cost_position
 from controllers.log_controller import log
 
 # 注册蓝图列表
-
-blueprint_list = [log, config, config_history, cost_position, bond_report, assetDetail_report]
+blueprint_list = [log, config, config_history, cost_position, bond_report, assetDetail_report, income_calculation_report]
+controllers/__init__.py

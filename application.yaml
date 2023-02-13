@@ -1,6 +1,6 @@
 #nacos注册中心配置
 nacos:
-  serverAddr: 10.7.5.4:28100
+  serverAddr: 127.0.0.1:28100
   namespace: public
   username: nacos
   password: nacos
@@ -11,7 +11,7 @@ nacos:
 application:
   name: app-report
   port: 8080
-  ip: 10.7.31.9
+  ip: 127.0.0.1
   group: DEFAULT_GROUP
 
 
@@ -52,7 +52,7 @@ dbInfo:
     port: 5236
 
 redis:
-  host: 10.55.255.54
+  host: 127.0.0.1
   port: 6379
   password: 123456
   db: 7
