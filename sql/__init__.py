@@ -22,3 +22,4 @@ income_calculation_report_sql = IncomeCalculationReportSql();
 flowRate_report_sql = FlowRateReportSql()
 cashTest_report_sql = CashTestReportSql()
 incomeCount_report_sql = IncomeCountReportSql()
+income_calculation_report_sql = IncomeCalculationReportSql()
