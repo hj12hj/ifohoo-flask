@@ -1,0 +1,60 @@
+{
+  "config": {
+    "rowKey": "settleDate"
+  },
+  "columns": [
+{
+      "title": "截止日期",
+      "dataIndex": "settleDate",
+      "hideInTable": true,
+      "valueType": "date"
+    },
+    {
+      "title": "品种",
+      "dataIndex": "secuName",
+      "fohooDataTypeValue": "0",
+      "fohooCharWidth": 16
+    },
+    {
+      "title": "持仓金额（元）",
+      "dataIndex": "inveCost",
+      "fohooDataTypeValue": "1",
+      "fohooCharWidth": 8,
+      "fohooDecWidth": 4,
+      "fohooFormatTypeValue": "1"
+    },
+    {
+      "title": "加权平均占用额（元）",
+      "dataIndex": "wAvgOccupy",
+      "fohooDataTypeValue": "1",
+      "fohooCharWidth": 8,
+      "fohooDecWidth": 4,
+      "fohooFormatTypeValue": "1"
+    },
+    {
+      "title": "占比",
+      "dataIndex": "proportion",
+      "fohooDataTypeValue": "1",
+      "fohooCharWidth": 8,
+      "fohooDecWidth": 4,
+      "fohooFormatTypeValue": "2"
+    },
+    {
+      "title": "收益率",
+      "dataIndex": "yield",
+      "fohooDataTypeValue": "1",
+      "fohooCharWidth": 8,
+      "fohooDecWidth": 4,
+      "fohooFormatTypeValue": "2"
+    },
+    {
+      "title": "收益（元）",
+      "dataIndex": "profit",
+      "fohooDataTypeValue": "1",
+      "fohooCharWidth": 8,
+      "fohooDecWidth": 4,
+      "fohooFormatTypeValue": "1"
+    }
+  ],
+  "url": "/app-report/insuranceProfitCalculation"
+}

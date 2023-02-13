@@ -1,11 +1,11 @@
 #nacos注册中心配置
 nacos:
-  serverAddr: 127.0.0.1:28100
+  serverAddr: 10.7.31.13:28100
   namespace: public
   username: nacos
   password: nacos
   group: DEFAULT_GROUP
-  dataId: application1.yaml
+  dataId: report.yml
 
 #本地服务信息配置
 application:
@@ -13,46 +13,3 @@ application:
   port: 8080
   ip: 127.0.0.1
   group: DEFAULT_GROUP
-
-
-logToFile: true
-
-#配置名称跟代码对应的
-dbInfo:
-  dbType: oracle
-
-  mysql:
-    host: 10.7.31.9
-    port: 3306
-    user: root
-    password: 'hj123456'
-    db: test
-    charset: utf8
-
-  #  密码字符串
-  oracle:
-    user: firm25
-    password: '888888'
-    encoding: utf8
-    dsn: 10.55.254.134:1521/ORCL
-
-  sqlserver:
-    host: 10.55.255.95
-    port: 1433
-    username: sa
-    password: 888888
-    dbname=: irmZhcw
-    charset: GBK
-
-  #  密码字符串
-  dm:
-    user: firmGNCW
-    password: '888888888'
-    server: 10.55.255.101
-    port: 5236
-
-redis:
-  host: 127.0.0.1
-  port: 6379
-  password: 123456
-  db: 7
