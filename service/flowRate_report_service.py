@@ -1,11 +1,21 @@
 import datetime
-
+from dateutil.relativedelta import relativedelta
 from sql import flowRate_report_sql
 
 """
     综合流动比率报表Service
 """
+secuCategoryList = {"1": ["DDC", "DDN", "EUM", "DBFSM", "DPC", "DPO", "DBA", "DBN", "DRC"],
+                    "3": ["DDA", "DDT"],
+                    "4": ["DBG", "DBD", "DBDM"],
+                    "5": ["DBF", "DBFM"],
+                    "6": ["DBE", "DBEM"],
+                    "8": ["EUF", "DBV", ],
+                    "9": ["EUE"],
+                    "10": ["DP"],
+                    "28": ["DP"]
 
+                    }
 
 class FlowRateReportService:
 
@@ -17,81 +27,116 @@ class FlowRateReportService:
     """
 
     def flowRate_report_list(self, query_data):
+        settleDate = query_data.get("settleDate")
+        #3个月后日期
+        threeMonthDate = self.__get_three_month_Date(settleDate).strftime('%Y-%m-%d')
+        #一年后日期
+        lastYearDate = self.__get_last_year_Date(settleDate).strftime('%Y-%m-%d')
         datalist = self.sql.get_flowRate_report_list(query_data)
 
+        data_1_amt = self.__getData_by_type_list(datalist, "1")
+
+        data_3_amt = self.__getData_by_type_list(datalist, "3")
+        data_3_threeMonth = self.__getData_by_dueData_list(data_3_amt, threeMonthDate)
+        data_3_yearIn = self.__getData_by_dueData_list(data_3_amt, lastYearDate)
+        data_3_yearOut = self.__getData_by_dueData_year_list(data_3_amt, lastYearDate)
+
+        data_4_amt = self.__getData_by_type_list(datalist, "4")
+        data_4_threeMonth = self.__getData_by_dueData_list(data_4_amt, threeMonthDate)
+        data_4_yearIn = self.__getData_by_dueData_list(data_4_amt, lastYearDate)
+        data_4_yearOut = self.__getData_by_dueData_year_list(data_4_amt, lastYearDate)
+
+        data_5_amt = self.__getData_by_type_list(datalist, "5")
+        data_5_threeMonth = self.__getData_by_dueData_list(data_5_amt, threeMonthDate)
+        data_5_yearIn = self.__getData_by_dueData_list(data_5_amt, lastYearDate)
+        data_5_yearOut = self.__getData_by_dueData_year_list(data_5_amt, lastYearDate)
+
+        data_6_amt = self.__getData_by_type_list(datalist, "6")
+        data_6_threeMonth = self.__getData_by_dueData_list(data_6_amt, threeMonthDate)
+        data_6_yearIn = self.__getData_by_dueData_list(data_6_amt, lastYearDate)
+        data_6_yearOut = self.__getData_by_dueData_year_list(data_6_amt, lastYearDate)
+
+        data_28_amt = self.__getData_by_type_list(datalist, "28")
+        data_28_threeMonth = self.__getData_by_dueData_list(data_28_amt, threeMonthDate)
+        data_28_yearIn = self.__getData_by_dueData_list(data_28_amt, lastYearDate)
+        data_28_yearOut = self.__getData_by_dueData_year_list(data_28_amt, lastYearDate)
+
+
+
+
         data = []
-        data1 = {"flowRateNo": 1, "productName": "现金及现金等价物", "marketValueAmt": 11, "dealCashFlow": 89.73, "undueCashFlow": 2.18,
-                 "threadMon": 9.16, "oneYear": 89.73, "moreOneYear": 2.18}
-        data2 = {"flowRateNo": 2, "productName": "投资资产：", "marketValueAmt": 4109.59, "dealCashFlow": 89.73, "undueCashFlow": 2.18,
-                 "threadMon": 9.16, "oneYear": 89.73, "moreOneYear": 2.18}
-        data3 = {"productName": "定期存款和协议存款", "marketValueAmt": 4109.59, "dealCashFlow": 89.73, "undueCashFlow": 2.18,
-                 "threadMon": 9.16, "oneYear": 89.73, "moreOneYear": 2.18}
-        data4 = {"productName": "政府债券", "marketValueAmt": 4109.59, "dealCashFlow": 89.73, "undueCashFlow": 2.18,
-                 "threadMon": 9.16, "oneYear": 89.73, "moreOneYear": 2.18}
-        data5 = {"productName": "金融债", "marketValueAmt": 4109.59, "dealCashFlow": 89.73, "undueCashFlow": 2.18,
-                 "threadMon": 9.16, "oneYear": 89.73, "moreOneYear": 2.18}
-        data6 = {"productName": "企业债券", "marketValueAmt": 4109.59, "dealCashFlow": 89.73, "undueCashFlow": 2.18,
-                 "threadMon": 9.16, "oneYear": 89.73, "moreOneYear": 2.18}
-        data7 = {"productName": "资产证券化产品", "marketValueAmt": 4109.59, "dealCashFlow": 89.73, "undueCashFlow": 2.18,
-                 "threadMon": 9.16, "oneYear": 89.73, "moreOneYear": 2.18}
-        data8 = {"productName": "信托资产", "marketValueAmt": 4109.59, "dealCashFlow": 89.73, "undueCashFlow": 2.18,
-                 "threadMon": 9.16, "oneYear": 89.73, "moreOneYear": 2.18}
-        data9 = {"productName": "基础设施投资", "marketValueAmt": 4109.59, "dealCashFlow": 89.73, "undueCashFlow": 2.18,
-                 "threadMon": 9.16, "oneYear": 89.73, "moreOneYear": 2.18}
-        data10 = {"productName": "保险资产管理产品", "marketValueAmt": 4109.59, "dealCashFlow": 89.73, "undueCashFlow": 2.18,
-                  "threadMon": 9.16, "oneYear": 89.73, "moreOneYear": 2.18}
-        data11 = {"productName": "权益投资", "marketValueAmt": 4109.59, "dealCashFlow": 89.73, "undueCashFlow": 2.18,
-                  "threadMon": 9.16, "oneYear": 89.73, "moreOneYear": 2.18}
-        data12 = {"productName": "贷款", "marketValueAmt": 4109.59, "dealCashFlow": 89.73, "undueCashFlow": 2.18,
-                  "threadMon": 9.16, "oneYear": 89.73, "moreOneYear": 2.18}
-        data13 = {"productName": "投资性不动产", "marketValueAmt": 4109.59, "dealCashFlow": 89.73, "undueCashFlow": 2.18,
-                  "threadMon": 9.16, "oneYear": 89.73, "moreOneYear": 2.18}
-        data14 = {"productName": "衍生金融工具", "marketValueAmt": 4109.59, "dealCashFlow": 89.73, "undueCashFlow": 2.18,
-                  "threadMon": 9.16, "oneYear": 89.73, "moreOneYear": 2.18}
-        data15 = {"productName": "其他投资资产", "marketValueAmt": 4109.59, "dealCashFlow": 89.73, "undueCashFlow": 2.18,
-                  "threadMon": 9.16, "oneYear": 89.73, "moreOneYear": 2.18}
-        data16 = {"productName": "应收款项", "marketValueAmt": 4109.59, "dealCashFlow": 89.73, "undueCashFlow": 2.18,
-                  "threadMon": 9.16, "oneYear": 89.73, "moreOneYear": 2.18}
-        data17 = {"productName": "其他资产", "marketValueAmt": 4109.59, "dealCashFlow": 89.73, "undueCashFlow": 2.18,
-                  "threadMon": 9.16, "oneYear": 89.73, "moreOneYear": 2.18}
-        data18 = {"productName": "独立账户资产", "marketValueAmt": 4109.59, "dealCashFlow": 89.73, "undueCashFlow": 2.18,
-                  "threadMon": 9.16, "oneYear": 89.73, "moreOneYear": 2.18}
-        data19 = {"productName": "合计", "marketValueAmt": 4109.59, "dealCashFlow": 89.73, "undueCashFlow": 2.18,
-                  "threadMon": 9.16, "oneYear": 89.73, "moreOneYear": 2.18}
-        data20 = {"productName": "未到期责任准备金", "marketValueAmt": 4109.59, "dealCashFlow": 89.73, "undueCashFlow": 2.18,
-                  "threadMon": 9.16, "oneYear": 89.73, "moreOneYear": 2.18}
-        data21 = {"productName": "寿险责任准备金", "marketValueAmt": 4109.59, "dealCashFlow": 89.73, "undueCashFlow": 2.18,
-                  "threadMon": 9.16, "oneYear": 89.73, "moreOneYear": 2.18}
-        data22 = {"productName": "长期健康险责任准备金", "marketValueAmt": 4109.59, "dealCashFlow": 89.73, "undueCashFlow": 2.18,
-                  "threadMon": 9.16, "oneYear": 89.73, "moreOneYear": 2.18}
-        data23 = {"productName": "未决赔款责任准备金", "marketValueAmt": 4109.59, "dealCashFlow": 89.73, "undueCashFlow": 2.18,
-                  "threadMon": 9.16, "oneYear": 89.73, "moreOneYear": 2.18}
-        data24 = {"productName": "保户储金及投资款", "marketValueAmt": 4109.59, "dealCashFlow": 89.73, "undueCashFlow": 2.18,
-                  "threadMon": 9.16, "oneYear": 89.73, "moreOneYear": 2.18}
-        data25 = {"productName": "应付保户红利", "marketValueAmt": 4109.59, "dealCashFlow": 89.73, "undueCashFlow": 2.18,
-                  "threadMon": 9.16, "oneYear": 89.73, "moreOneYear": 2.18}
-        data26 = {"productName": "应付佣金及手续费", "marketValueAmt": 4109.59, "dealCashFlow": 89.73, "undueCashFlow": 2.18,
-                  "threadMon": 9.16, "oneYear": 89.73, "moreOneYear": 2.18}
-        data27 = {"productName": "应付款项", "marketValueAmt": 4109.59, "dealCashFlow": 89.73, "undueCashFlow": 2.18,
-                  "threadMon": 9.16, "oneYear": 89.73, "moreOneYear": 2.18}
-        data28 = {"productName": "卖出回购证券", "marketValueAmt": 4109.59, "dealCashFlow": 89.73, "undueCashFlow": 2.18,
-                  "threadMon": 9.16, "oneYear": 89.73, "moreOneYear": 2.18}
-        data29 = {"productName": "应付返售证券", "marketValueAmt": 4109.59, "dealCashFlow": 89.73, "undueCashFlow": 2.18,
-                  "threadMon": 9.16, "oneYear": 89.73, "moreOneYear": 2.18}
-        data30 = {"productName": "应付债券", "marketValueAmt": 4109.59, "dealCashFlow": 89.73, "undueCashFlow": 2.18,
-                  "threadMon": 9.16, "oneYear": 89.73, "moreOneYear": 2.18}
-        data31 = {"productName": "预计负债", "marketValueAmt": 4109.59, "dealCashFlow": 89.73, "undueCashFlow": 2.18,
-                  "threadMon": 9.16, "oneYear": 89.73, "moreOneYear": 2.18}
-        data32 = {"productName": "其他负债", "marketValueAmt": 4109.59, "dealCashFlow": 89.73, "undueCashFlow": 2.18,
-                  "threadMon": 9.16, "oneYear": 89.73, "moreOneYear": 2.18}
-        data33 = {"productName": "独立账户负债", "marketValueAmt": 4109.59, "dealCashFlow": 89.73, "undueCashFlow": 2.18,
-                  "threadMon": 9.16, "oneYear": 89.73, "moreOneYear": 2.18}
-        data34 = {"productName": "合计", "marketValueAmt": 4109.59, "dealCashFlow": 89.73, "undueCashFlow": 2.18,
-                  "threadMon": 9.16, "oneYear": 89.73, "moreOneYear": 2.18}
-        data35 = {"productName": "净现金流入", "marketValueAmt": 4109.59, "dealCashFlow": 89.73, "undueCashFlow": 2.18,
-                  "threadMon": 9.16, "oneYear": 89.73, "moreOneYear": 2.18}
-        data36 = {"productName": "综合流动比率", "marketValueAmt": 4109.59, "dealCashFlow": 89.73, "undueCashFlow": 2.18,
-                  "threadMon": 9.16, "oneYear": 89.73, "moreOneYear": 2.18}
+        data1 = {"flowRateNo": 1, "productName": "现金及现金等价物", "marketValueAmt": self.__deal_list_count(data_1_amt), "dealCashFlow": "", "undueCashFlow": "",
+                 "threadMon": threeMonthDate, "oneYear": lastYearDate, "moreOneYear": lastYearDate}
+        data2 = {"flowRateNo": 2, "productName": "投资资产：", "marketValueAmt": "", "dealCashFlow": "", "undueCashFlow": "",
+                 "threadMon": "", "oneYear": "", "moreOneYear": ""}
+        data3 = {"productName": "定期存款和协议存款", "marketValueAmt": self.__deal_list_count(data_3_amt), "dealCashFlow": "", "undueCashFlow": "",
+                 "threadMon": self.__deal_list_count(data_3_threeMonth), "oneYear": self.__deal_list_count(data_3_yearIn), "moreOneYear": self.__deal_list_count(data_3_yearOut)}
+        data4 = {"productName": "政府债券", "marketValueAmt": self.__deal_list_count(data_4_amt), "dealCashFlow": "", "undueCashFlow": "",
+                 "threadMon": self.__deal_list_count(data_4_threeMonth), "oneYear": self.__deal_list_count(data_4_yearIn), "moreOneYear": self.__deal_list_count(data_4_yearOut)}
+        data5 = {"productName": "金融债", "marketValueAmt": self.__deal_list_count(data_5_amt), "dealCashFlow": "", "undueCashFlow": "",
+                 "threadMon": self.__deal_list_count(data_5_threeMonth), "oneYear": self.__deal_list_count(data_5_yearIn), "moreOneYear": self.__deal_list_count(data_5_yearOut)}
+        data6 = {"productName": "企业债券", "marketValueAmt": self.__deal_list_count(data_6_amt), "dealCashFlow": "", "undueCashFlow": "",
+                 "threadMon": self.__deal_list_count(data_6_threeMonth), "oneYear": self.__deal_list_count(data_6_yearIn), "moreOneYear": self.__deal_list_count(data_6_yearOut)}
+        data7 = {"productName": "资产证券化产品", "marketValueAmt": "", "dealCashFlow": "", "undueCashFlow": "",
+                 "threadMon": "", "oneYear": "", "moreOneYear": ""}
+        data8 = {"productName": "信托资产", "marketValueAmt": "", "dealCashFlow": "", "undueCashFlow": "",
+                 "threadMon": "", "oneYear": "", "moreOneYear": ""}
+        data9 = {"productName": "基础设施投资", "marketValueAmt": "", "dealCashFlow": "", "undueCashFlow": "",
+                 "threadMon": "", "oneYear": "", "moreOneYear": ""}
+        data10 = {"productName": "保险资产管理产品", "marketValueAmt": "", "dealCashFlow": "", "undueCashFlow": "",
+                  "threadMon": "", "oneYear": "", "moreOneYear": ""}
+        data11 = {"productName": "权益投资", "marketValueAmt": "", "dealCashFlow": "", "undueCashFlow": "",
+                  "threadMon": "", "oneYear": "", "moreOneYear": ""}
+        data12 = {"productName": "贷款", "marketValueAmt": "", "dealCashFlow": "", "undueCashFlow": "",
+                  "threadMon": "", "oneYear": "", "moreOneYear": ""}
+        data13 = {"productName": "投资性不动产", "marketValueAmt": "", "dealCashFlow": "", "undueCashFlow": "",
+                  "threadMon": "", "oneYear": "", "moreOneYear": ""}
+        data14 = {"productName": "衍生金融工具", "marketValueAmt": "", "dealCashFlow": "", "undueCashFlow": "",
+                  "threadMon": "", "oneYear": "", "moreOneYear": ""}
+        data15 = {"productName": "其他投资资产", "marketValueAmt": "", "dealCashFlow": "", "undueCashFlow": "",
+                  "threadMon": "", "oneYear": "", "moreOneYear": ""}
+        data16 = {"productName": "应收款项", "marketValueAmt": "", "dealCashFlow": "", "undueCashFlow": "",
+                  "threadMon": "", "oneYear": "", "moreOneYear": ""}
+        data17 = {"productName": "其他资产", "marketValueAmt": "", "dealCashFlow": "", "undueCashFlow": "",
+                  "threadMon": "", "oneYear": "", "moreOneYear": ""}
+        data18 = {"productName": "独立账户资产", "marketValueAmt": "", "dealCashFlow": "", "undueCashFlow": "",
+                  "threadMon": "", "oneYear": "", "moreOneYear": ""}
+        data19 = {"productName": "合计", "marketValueAmt": "", "dealCashFlow": "", "undueCashFlow": "",
+                  "threadMon": "", "oneYear": "", "moreOneYear": ""}
+        data20 = {"productName": "未到期责任准备金", "marketValueAmt": "", "dealCashFlow": "", "undueCashFlow": "",
+                  "threadMon": "", "oneYear": "", "moreOneYear": ""}
+        data21 = {"productName": "寿险责任准备金", "marketValueAmt": "", "dealCashFlow": "", "undueCashFlow": "",
+                  "threadMon": "", "oneYear": "", "moreOneYear": ""}
+        data22 = {"productName": "长期健康险责任准备金", "marketValueAmt": "", "dealCashFlow": "", "undueCashFlow": "",
+                  "threadMon": "", "oneYear": "", "moreOneYear": ""}
+        data23 = {"productName": "未决赔款责任准备金", "marketValueAmt": "", "dealCashFlow": "", "undueCashFlow": "",
+                  "threadMon": "", "oneYear": "", "moreOneYear": ""}
+        data24 = {"productName": "保户储金及投资款", "marketValueAmt": "", "dealCashFlow": "", "undueCashFlow": "",
+                  "threadMon": "", "oneYear": "", "moreOneYear": ""}
+        data25 = {"productName": "应付保户红利", "marketValueAmt": "", "dealCashFlow": "", "undueCashFlow": "",
+                  "threadMon": "", "oneYear": "", "moreOneYear": ""}
+        data26 = {"productName": "应付佣金及手续费", "marketValueAmt": "", "dealCashFlow": "", "undueCashFlow": "",
+                  "threadMon": "", "oneYear": "", "moreOneYear": ""}
+        data27 = {"productName": "应付款项", "marketValueAmt": "", "dealCashFlow": "", "undueCashFlow": "",
+                  "threadMon": "", "oneYear": "", "moreOneYear": ""}
+        data28 = {"productName": "卖出回购证券", "marketValueAmt": self.__deal_list_count(data_28_amt), "dealCashFlow": "", "undueCashFlow": "",
+                  "threadMon": self.__deal_list_count(data_28_threeMonth), "oneYear": self.__deal_list_count(data_28_yearIn), "moreOneYear": self.__deal_list_count(data_28_yearOut)}
+        data29 = {"productName": "应付返售证券", "marketValueAmt": "", "dealCashFlow": "", "undueCashFlow": "",
+                  "threadMon": "", "oneYear": "", "moreOneYear": ""}
+        data30 = {"productName": "应付债券", "marketValueAmt": "", "dealCashFlow": "", "undueCashFlow": "",
+                  "threadMon": "", "oneYear": "", "moreOneYear": ""}
+        data31 = {"productName": "预计负债", "marketValueAmt": "", "dealCashFlow": "", "undueCashFlow": "",
+                  "threadMon": "", "oneYear": "", "moreOneYear": ""}
+        data32 = {"productName": "其他负债", "marketValueAmt": "", "dealCashFlow": "", "undueCashFlow": "",
+                  "threadMon": "", "oneYear": "", "moreOneYear": ""}
+        data33 = {"productName": "独立账户负债", "marketValueAmt": "", "dealCashFlow": "", "undueCashFlow": "",
+                  "threadMon": "", "oneYear": "", "moreOneYear": ""}
+        data34 = {"productName": "合计", "marketValueAmt": "", "dealCashFlow": "", "undueCashFlow": "",
+                  "threadMon": "", "oneYear": "", "moreOneYear": ""}
+        data35 = {"productName": "净现金流入", "marketValueAmt": "", "dealCashFlow": "", "undueCashFlow": "",
+                  "threadMon": "", "oneYear": "", "moreOneYear": ""}
+        data36 = {"productName": "综合流动比率", "marketValueAmt": "", "dealCashFlow": "", "undueCashFlow": "",
+                  "threadMon": "", "oneYear": "", "moreOneYear": ""}
         data.append(data1)
         data.append(data2)
         data.append(data3)
@@ -134,13 +179,68 @@ class FlowRateReportService:
         #     data["yield"] = data["weight"] * data["matchMaturityYield"]
         return {"total": len(data), "list": data}
 
-    '''
-    处理日期，当前日期和上月月底日期相差天数
-    '''
 
-    def __dealDate(self):
-        today = datetime.date.today()
-        first = today.replace(day=1)
-        last_month = first - datetime.timedelta(days=1)
-        num = (today - last_month).days
-        return num
+    '''
+    根据证券类型过滤
+    '''
+    def __getData_by_type_list(self, dataList, type):
+        dataAll = []
+        for data in dataList.get("list"):
+            if data['secuCategoryCode'] in secuCategoryList.get(type):
+                dataAll.append(data)
+        return dataAll
+
+
+    '''
+    根据证券到期日过滤(3个月内和1年内)
+    '''
+    def __getData_by_dueData_list(self, dataAll, dueDate):
+        dataLastAll = []
+        if len(dataAll) > 0:
+            for data in dataAll:
+                if data['dueDate'] is None or data['dueDate'] == "":
+                    continue
+                elif data['dueDate'] <= dueDate:
+                    dataLastAll.append(data)
+        return dataLastAll
+
+    '''
+    根据证券到期日过滤(1年以上)
+    '''
+    def __getData_by_dueData_year_list(self, dataAll, dueDate):
+        dataLastAll = []
+        if len(dataAll) > 0:
+            for data in dataAll:
+                if data['dueDate'] is None or data['dueDate'] == "":
+                    dataLastAll.append(data)
+                    continue
+                elif data['dueDate'] > dueDate:
+                    dataLastAll.append(data)
+        return dataLastAll
+
+    '''
+    处理数据库获取数据
+    '''
+    def __deal_list_count(self, dataAll):
+        count = 0
+        for data in dataAll:
+            count += data["inveCost"]
+        return count
+
+
+    '''
+    处理日期，当前日期3个月后天数
+    '''
+    def __get_three_month_Date(self, settleDateStr):
+        settleDate = datetime.datetime.strptime(settleDateStr, '%Y-%m-%d')
+        endDate = settleDate + relativedelta(months=3)
+        return endDate
+
+
+    '''
+    处理日期，当前日期和去年年底日期相差天数
+    '''
+    def __get_last_year_Date(self, settleDateStr):
+        settleDate = datetime.datetime.strptime(settleDateStr, '%Y-%m-%d')
+        lastYearEndDate = datetime.datetime(int(settleDate.year) - 1, settleDate.month, settleDate.day)
+        return lastYearEndDate

@@ -1,16 +1,18 @@
 {
   "config": {
-    "rowKey": "cashTestNo"
+    "rowKey": "cashTestNo",
+    "hideIndexColumn": true
   },
   "columns": [
     {
-      "title": "持仓表的唯一编号",
-      "dataIndex": "cashTestNo",
+      "title": "查询日期",
+      "dataIndex": "settleDate",
       "hideInTable": true,
-      "type": "text"
+      "valueType": "date",
+      "initialValue":moment()
     },
     {
-      "title": "2022年9月",
+      "title": "当前日期",
       "dataIndex": "111",
       "children":[
         {
@@ -38,7 +40,7 @@
       ]
     },
     {
-      "title": "2022年9月30日",
+      "title": "本季度",
       "dataIndex": "222",
       "children": [
         {
@@ -56,7 +58,7 @@
       ]
     },
     {
-      "title": "2022年12月31日",
+      "title": "未来1季度",
       "dataIndex": "333",
       "children": [
         {
@@ -74,7 +76,7 @@
       ]
     },
     {
-      "title": "2023年3月31日",
+      "title": "未来2季度",
       "dataIndex": "444",
       "children": [
         {
@@ -92,7 +94,7 @@
       ]
     },
     {
-      "title": "2023年6月30日",
+      "title": "未来3季度",
       "dataIndex": "555",
       "children": [
         {
@@ -110,7 +112,7 @@
       ]
     },
     {
-      "title": "2023年9月30日",
+      "title": "未来4季度",
       "dataIndex": "666",
       "children": [
         {

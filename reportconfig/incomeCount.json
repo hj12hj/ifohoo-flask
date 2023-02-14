@@ -1,13 +1,15 @@
 {
   "config": {
-    "rowKey": "positionNo"
+    "rowKey": "positionNo",
+    "hideIndexColumn": true
   },
   "columns": [
     {
-      "title": "持仓表的唯一编号",
-      "dataIndex": "positionNo",
+      "title": "查询日期",
+      "dataIndex": "settleDate",
       "hideInTable": true,
-      "type": "text"
+      "valueType": "date",
+      "initialValue":moment()
     },
     {
       "title": "项目",
