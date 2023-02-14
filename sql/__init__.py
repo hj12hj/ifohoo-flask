@@ -1,6 +1,7 @@
 from sql.assetDetail_report_sql import AssetDetailReportSql
 from sql.bond_report_sql import BondReportSql
 from sql.income_calulation_report_sql import IncomeCalculationReportSql
+from sql.insurance_profit_calulation_sql import InsuranceProfitCalculationSql
 from sql.user_sql import UserSql
 from sql.config_sql import ConfigSql
 from sql.config_history_sql import ConfigHistorySql

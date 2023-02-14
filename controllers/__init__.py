@@ -1,3 +1,4 @@
+from controllers.assetDetail_report_controller import assetDetail_report
 from controllers.config_controller import config
 from controllers.config_history_controller import config_history
 from controllers.cost_position_controller import cost_position
