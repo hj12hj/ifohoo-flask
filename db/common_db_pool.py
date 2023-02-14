@@ -40,7 +40,7 @@ class CommonDbPool(CommonDbPoolBase):
             return data
 
     # 查询所有结果
-    def query_all(self, sql, data=None):
+    def query_all(self, sql, data=None, handle_none=False):
         current_app.logger.info("查询多个结果 sql --> " + sql)
         current_app.logger.info("参数 --> " + str(data))
         conn = local_connect.conn
@@ -48,6 +48,8 @@ class CommonDbPool(CommonDbPoolBase):
         if data is None:
             cursor.execute(sql)
         else:
+            if handle_none:
+                sql, data = self.__handle_query_str(sql, data)
             # mysql 占位符跟 oracle dm  不一样 加个转换
             if self.db_type == "mysql":
                 sql = re.sub(":\d{1,2}", "%s", sql)
