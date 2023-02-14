@@ -1,0 +1,85 @@
+{
+  "config": {
+    "rowKey": "name",
+    "hideIndexColumn": true,
+     "options":{
+         "setting": false
+      }
+ },
+ "pagination": false,
+  "columns": [
+   {
+      "title": "截止日期",
+      "dataIndex": "settleDate",
+      "hideInTable": true,
+      "valueType": "date",
+      "fieldProps": {
+          "allowClear":false
+       },
+       "formItemProps":{
+          "initialValue":moment()
+        }
+    },
+    {
+      "title": "品种",
+      "dataIndex": "name",
+      "fohooDataTypeValue": "0",
+      "fohooCharWidth": "16",
+      "render": (text) => {
+	    if(text && text.indexOf('.')>-1){
+		return React.createElement(
+            "span", {"style":{"paddingLeft":"16px"}}, text)
+        }
+        return text
+      }
+    },
+    {
+      "title": "持仓金额（元）",
+      "dataIndex": "inveCost",
+      "fohooDataTypeValue":"1",
+      "fohooZeroShowTypeValue":"2",
+      "fohooCharWidth":"14",
+      "fohooDecWidth": "2",
+       "fohooFormatTypeValue": "1"
+    },
+    {
+      "title": "加权平均占用额（元）",
+      "dataIndex": "wAvgOccupy",
+      "fohooDataTypeValue":"1",
+      "fohooZeroShowTypeValue":"2",
+      "fohooCharWidth":"14",
+      "fohooDecWidth": "2",
+       "fohooFormatTypeValue": "1"
+    },
+    {
+      "title": "占比",
+      "dataIndex": "proportion",
+      "fohooDataTypeValue":"1",
+      "fohooCharWidth":"14",
+      "fohooDecWidth": "2",
+      "fohooFormatTypeValue": "2",
+      "fohooZeroShowTypeValue":"2",
+      "fohooSuffixValue": "11"
+    },
+    {
+      "title": "收益率",
+      "dataIndex": "yield",
+      "fohooDataTypeValue":"1",
+      "fohooCharWidth":"14",
+      "fohooDecWidth": "2",
+      "fohooFormatTypeValue": "2",
+      "fohooZeroShowTypeValue":"2",
+      "fohooSuffixValue": "11"
+    },
+    {
+      "title": "收益（元）",
+      "dataIndex": "profit",
+      "fohooDataTypeValue":"1",
+      "fohooZeroShowTypeValue":"2",
+      "fohooCharWidth":"14",
+      "fohooDecWidth": "2",
+       "fohooFormatTypeValue": "1"
+    }
+  ],
+  "url": "/app-report/insuranceProfitCalculation"
+}

@@ -1,6 +1,7 @@
 from sql.assetDetail_report_sql import AssetDetailReportSql
 from sql.bond_report_sql import BondReportSql
 from sql.income_calulation_report_sql import IncomeCalculationReportSql
+from sql.insurance_profit_calulation_sql import InsuranceProfitCalculationSql
 from sql.user_sql import UserSql
 from sql.config_sql import ConfigSql
 from sql.config_history_sql import ConfigHistorySql
@@ -16,10 +17,8 @@ cost_position_sql = CostPositionSql()
 
 bond_report_sql = BondReportSql()
 assetDetail_report_sql = AssetDetailReportSql()
-
-income_calculation_report_sql = IncomeCalculationReportSql();
-
+income_calulation_report_sql = IncomeCalculationReportSql()
+insurance_profit_calculation_sql = InsuranceProfitCalculationSql();
 flowRate_report_sql = FlowRateReportSql()
 cashTest_report_sql = CashTestReportSql()
 incomeCount_report_sql = IncomeCountReportSql()
-income_calculation_report_sql = IncomeCalculationReportSql()
