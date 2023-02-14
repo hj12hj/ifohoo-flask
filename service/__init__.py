@@ -6,6 +6,9 @@ from service.insurance_profit_calculation_service import InsuranceProfitCalculat
 from service.user_service import UserService
 from service.config_service import ConfigService
 from service.cost_position_service import CostPositionService
+from service.flowRate_report_service import FlowRateReportService
+from service.cashTest_report_service import CashTestReportService
+from service.incomeCount_report_service import IncomeCountReportService
 
 userService = UserService()
 configService = ConfigService()
@@ -14,5 +17,7 @@ costPositionService = CostPositionService()
 bondReportService = BondReportService()
 assetDetailReportService = AssetDetailReportService()
 incomeCalculationReportService = IncomeCalculationReportService()
-
 insuranceProfitCalculationService = InsuranceProfitCalculationService()
+flowRateReportService = FlowRateReportService()
+cashTestReportService = CashTestReportService()
+incomeCountReportService = IncomeCountReportService()
