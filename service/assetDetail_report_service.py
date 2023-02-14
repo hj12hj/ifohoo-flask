@@ -14,7 +14,7 @@ type_list = {"1.1": ["DDC", "DDN", "EUM", "DBFSM", "DPC", "DPO", "DBA", "DBN", "
              "2.1.3.1": ["EWE"],
              "3.1.1": ["ES", "ESC", "ESP", "ESV"],
              "3.1.2": ["EUN", "EUE", "EUL", "EUF", "EUQ", "EUG", "EUGD", "EUGE"],
-             "3.1.4": ["DBV"]
+             "3.1.4": ["DBV", "DBVM"]
              }
 
 dict_invest1 = {'investType': "1、现金及流动性管理工具"}
@@ -95,6 +95,7 @@ class AssetDetailReportService:
     """
 
     def assetDetail_report_list(self, query_data):
+        rowKey = 1
 
         list_all = []
 
@@ -107,29 +108,17 @@ class AssetDetailReportService:
         for data in datalist:
             if data["secuCategoryCode"] in type_list.get("1.1"):
                 type_map.get("1.1").append(data)
-
-        for data in datalist:
-            if data["secuCategoryCode"] in type_list.get("2.1.1"):
+            elif data["secuCategoryCode"] in type_list.get("2.1.1"):
                 type_map.get("2.1.1").append(data)
-
-        for data in datalist:
-            if data["secuCategoryCode"] in type_list.get("2.1.3"):
+            elif data["secuCategoryCode"] in type_list.get("2.1.3"):
                 type_map.get("2.1.3").append(data)
-
-        for data in datalist:
-            if data["secuCategoryCode"] in type_list.get("2.1.3.1"):
+            elif data["secuCategoryCode"] in type_list.get("2.1.3.1"):
                 type_map.get("2.1.3.1").append(data)
-
-        for data in datalist:
-            if data["secuCategoryCode"] in type_list.get("3.1.1"):
+            elif data["secuCategoryCode"] in type_list.get("3.1.1"):
                 type_map.get("3.1.1").append(data)
-
-        for data in datalist:
-            if data["secuCategoryCode"] in type_list.get("3.1.2"):
+            elif data["secuCategoryCode"] in type_list.get("3.1.2"):
                 type_map.get("3.1.2").append(data)
-
-        for data in datalist:
-            if data["secuCategoryCode"] in type_list.get("3.1.4"):
+            elif data["secuCategoryCode"] in type_list.get("3.1.4"):
                 type_map.get("3.1.4").append(data)
         list_all.append(dict_invest1)
         list_all.append(dict_invest2)
@@ -207,6 +196,8 @@ class AssetDetailReportService:
         secuCategoryMap = json.loads(findSecuCategoryMap()).get("returnData")
         self.__transform_name(returnData=list_all, secuCategoryMap=secuCategoryMap)
         for list in list_all:
+            list["assetDetailNo"] = rowKey
+            rowKey += 1
             if "investType" not in list:
                 list["eoqBalance"] = list["inveCost"]
                 # list["eoqBalance"] = self.sql.get_face_value_list(list["secuGlobalCode"],
