@@ -16,7 +16,7 @@ class CommonDbPoolBase(metaclass=abc.ABCMeta):
         elif self.db_type == "oracle":
             self.db_creator = importlib.import_module("cx_Oracle")
             # 加入本地驱动包
-            # self.db_creator.init_oracle_client(lib_dir="/Users/hejie/Documents/instantclient_19_8")
+            #self.db_creator.init_oracle_client(lib_dir="/Users/hejie/Documents/instantclient_19_8")
         elif self.db_type == "dm":
             self.db_creator = importlib.import_module("dmPython")
         else:

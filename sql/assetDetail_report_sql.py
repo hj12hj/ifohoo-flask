@@ -15,19 +15,18 @@ class AssetDetailReportSql:
 
     def get_assetDetail_report_list(self, query_data):
         settleDate = query_data.get("settleDate")
-        if settleDate is None or settleDate == "":
-            return self.db.query_all(
-                "select * from cost_position_security_invest")
-        else:
-            return self.db.query_all(
-                "select secu_category_code, secu_global_code, secu_name, inve_cost,position_create_date as trade_date," \
-                "(select due_date from secu_basic where secu_global_code = cost_position_security_invest.secu_global_code) as due_date" \
-                " from cost_position_security_invest where settle_date =:1 " \
-                "union all" \
-                " select secu_category_code, secu_global_code, secu_name, inve_cost, position_create_date as trade_date," \
-                "(select due_date from secu_basic where secu_global_code = cost_position_funds.secu_global_code)as due_date" \
-                " from cost_position_funds where settle_date =:1",
-                (settleDate,))
+        return self.db.query_all(
+            """
+                select secu_category_code, secu_global_code, secu_name, inve_cost,position_create_date as trade_date,
+                (select due_date from secu_basic where secu_global_code = cost_position_security_invest.secu_global_code) as due_date
+                from cost_position_security_invest where settle_date =:1
+                union all
+                select secu_category_code, secu_global_code, secu_name, inve_cost, position_create_date as trade_date,
+                (select due_date from secu_basic where secu_global_code = cost_position_funds.secu_global_code)as due_date
+                from cost_position_funds where settle_date =:1
+                
+            """,
+            (settleDate,))
 
     """
         持仓数据查询（查询账面余额）

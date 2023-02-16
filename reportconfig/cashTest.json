@@ -1,0 +1,134 @@
+{
+  "config": {
+    "rowKey": "cashTestNo",
+    "hideIndexColumn": true
+  },
+  "columns": [
+    {
+      "title": "查询日期",
+      "dataIndex": "settleDate",
+      "hideInTable": true,
+      "valueType": "date",
+      "initialValue":moment()
+    },
+    {
+      "title": "当前日期",
+      "dataIndex": "111",
+      "children":[
+        {
+          "title": "类别",
+          "dataIndex": "categoryType",
+          "hideInTable": false,
+          "fohooDataTypeValue": "0",
+          "fohooCharWidth": 16
+        },
+        {
+          "title": "说明",
+          "dataIndex": "description",
+          "hideInTable": false,
+          "fohooDataTypeValue": "0",
+          "fohooCharWidth": 16
+        },
+        {
+          "title": "系数",
+          "dataIndex": "rate",
+          "ellipsis": true,
+          "fohooDataTypeValue": "0",
+          "fohooCharWidth": 20,
+          "fixed": "left"
+        }
+      ]
+    },
+    {
+      "title": "本季度",
+      "dataIndex": "222",
+      "children": [
+        {
+          "title": "金额",
+          "dataIndex": "oneAmount",
+          "fohooDataTypeValue": "0",
+          "fohooCharWidth": 16
+        },
+        {
+          "title": "折算金额",
+          "dataIndex": "oneRateAmt",
+          "fohooDataTypeValue": "0",
+          "fohooCharWidth": 3
+        }
+      ]
+    },
+    {
+      "title": "未来1季度",
+      "dataIndex": "333",
+      "children": [
+        {
+          "title": "金额",
+          "dataIndex": "twoAmount",
+          "fohooDataTypeValue": "0",
+          "fohooCharWidth": 16
+        },
+        {
+          "title": "折算金额",
+          "dataIndex": "twoRateAmt",
+          "fohooDataTypeValue": "0",
+          "fohooCharWidth": 3
+        }
+      ]
+    },
+    {
+      "title": "未来2季度",
+      "dataIndex": "444",
+      "children": [
+        {
+          "title": "金额",
+          "dataIndex": "threeAmount",
+          "fohooDataTypeValue": "0",
+          "fohooCharWidth": 16
+        },
+        {
+          "title": "折算金额",
+          "dataIndex": "threeRateAmt",
+          "fohooDataTypeValue": "0",
+          "fohooCharWidth": 3
+        }
+      ]
+    },
+    {
+      "title": "未来3季度",
+      "dataIndex": "555",
+      "children": [
+        {
+          "title": "金额",
+          "dataIndex": "fourAmount",
+          "fohooDataTypeValue": "0",
+          "fohooCharWidth": 16
+        },
+        {
+          "title": "折算金额",
+          "dataIndex": "fourRateAmt",
+          "fohooDataTypeValue": "0",
+          "fohooCharWidth": 3
+        }
+      ]
+    },
+    {
+      "title": "未来4季度",
+      "dataIndex": "666",
+      "children": [
+        {
+          "title": "金额",
+          "dataIndex": "fiveAmount",
+          "fohooDataTypeValue": "0",
+          "fohooCharWidth": 16
+        },
+        {
+          "title": "折算金额",
+          "dataIndex": "fiveRateAmt",
+          "fohooDataTypeValue": "0",
+          "fohooCharWidth": 3
+        }
+      ]
+    }
+  ],
+  "url": "/app-report/cashTestReport"
+}

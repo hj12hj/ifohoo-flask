@@ -1,7 +1,9 @@
 {
     "config":{
-        "rowKey":"assetDetailNo"
+        "rowKey":"assetDetailNo",
+        "hideIndexColumn": true
     },
+    "pagination":false,
     "columns":[
         {
             "title":"查询日期",
@@ -19,125 +21,147 @@
             "title":"投资种类",
             "dataIndex":"investType",
             "fohooDataTypeValue":"0",
-            "fohooZeroShowTypeValue":"3",
-            "fohooCharWidth":24
+            "fohooCharWidth":50
         },
         {
             "title":"品种",
             "dataIndex":"secuCategoryCode",
             "fohooDataTypeValue":"0",
-            "fohooZeroShowTypeValue":"3",
             "fohooCharWidth":24
         },
         {
             "title":"名称",
             "dataIndex":"secuName",
             "fohooDataTypeValue":"0",
-            "fohooZeroShowTypeValue":"3",
             "fohooCharWidth":24
         },
         {
             "title":"本季度末账面余额（全价）",
             "dataIndex":"eoqFullPrice",
             "fohooDataTypeValue":"1",
+            "fohooFormatTypeValue": "1",
+            "fohooZeroShowTypeValue":"3",
             "fohooCharWidth":14
         },
         {
             "title":"本季度末账面余额",
             "dataIndex":"eoqBalance",
             "fohooDataTypeValue":"1",
+            "fohooFormatTypeValue": "1",
+            "fohooZeroShowTypeValue":"3",
             "fohooCharWidth":14
         },
         {
             "title":"应收利息",
             "dataIndex":"interestPrice",
             "fohooDataTypeValue":"1",
+            "fohooFormatTypeValue": "1",
+            "fohooZeroShowTypeValue":"3",
             "fohooCharWidth":14
         },
         {
             "title":"减值准备",
             "dataIndex":"impairment",
             "fohooDataTypeValue":"1",
+            "fohooFormatTypeValue": "1",
+            "fohooZeroShowTypeValue":"3",
             "fohooCharWidth":14
         },
         {
             "title":"本季度占比",
             "dataIndex":"quarterRate",
             "fohooDataTypeValue":"1",
+            "fohooFormatTypeValue": "1",
+            "fohooZeroShowTypeValue":"3",
             "fohooCharWidth":8
         },
         {
             "title":"投资收益",
             "dataIndex":"investmentIncome",
             "fohooDataTypeValue":"1",
+            "fohooFormatTypeValue": "1",
+            "fohooZeroShowTypeValue":"3",
             "fohooCharWidth":14
         },
         {
             "title":"其他综合收益",
             "dataIndex":"otherIncome",
             "fohooDataTypeValue":"1",
+            "fohooFormatTypeValue": "1",
+            "fohooZeroShowTypeValue":"3",
             "fohooCharWidth":14
         },
         {
             "title":"公允价值变动损益",
             "dataIndex":"fairValueLoss",
             "fohooDataTypeValue":"1",
+            "fohooFormatTypeValue": "1",
+            "fohooZeroShowTypeValue":"3",
             "fohooCharWidth":14
         },
         {
             "title":"较上年末变化",
             "dataIndex":"changeOfLastYear",
             "fohooDataTypeValue":"1",
+            "fohooZeroShowTypeValue":"3",
             "fohooCharWidth":8
         },
         {
             "title":"较上季度末变化",
             "dataIndex":"changeOfLastQuarter",
             "fohooDataTypeValue":"1",
+            "fohooZeroShowTypeValue":"3",
             "fohooCharWidth":8
         },
         {
             "title":"上季度末账面余额",
             "dataIndex":"lastEoqBalance",
             "fohooDataTypeValue":"1",
+            "fohooFormatTypeValue": "1",
+            "fohooZeroShowTypeValue":"3",
             "fohooCharWidth":14
         },
         {
             "title":"上季度占比",
             "dataIndex":"lastQuarterRate",
             "fohooDataTypeValue":"1",
+            "fohooFormatTypeValue": "1",
+            "fohooZeroShowTypeValue":"3",
             "fohooCharWidth":8
         },
         {
             "title":"去年末账面余额",
             "dataIndex":"lastYearEoqBalance",
             "fohooDataTypeValue":"1",
+            "fohooFormatTypeValue": "1",
+            "fohooZeroShowTypeValue":"3",
             "fohooCharWidth":14
         },
         {
             "title":"去年末占比",
             "dataIndex":"lastYearQuarterRate",
             "fohooDataTypeValue":"1",
+            "fohooFormatTypeValue": "1",
+            "fohooZeroShowTypeValue":"3",
             "fohooCharWidth":8
         },
         {
             "title":"交易日",
             "dataIndex":"tradeDate",
             "fohooDataTypeValue":"0",
-            "fohooZeroShowTypeValue":"3",
             "fohooCharWidth":10
         },
         {
             "title":"到期日",
             "dataIndex":"dueDate",
             "fohooDataTypeValue":"0",
-            "fohooZeroShowTypeValue":"3",
             "fohooCharWidth":10
         },
         {
             "title":"收益率",
             "dataIndex":"yield",
             "fohooDataTypeValue":"1",
+            "fohooZeroShowTypeValue":"3",
             "fohooCharWidth":16
         }
     ],
