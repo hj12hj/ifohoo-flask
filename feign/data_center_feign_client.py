@@ -1,7 +1,6 @@
 from feign.nacos_feign_client import NacosFeignClient
 
-dataCenterFeignClient = NacosFeignClient("datacenter")
-costAccountingFeignService = NacosFeignClient("costAccounting")
+dataCenterFeignClient = NacosFeignClient("app-datacenter")
 
 """
 币种Map

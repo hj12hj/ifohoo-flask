@@ -17,7 +17,7 @@ cost_position_sql = CostPositionSql()
 
 bond_report_sql = BondReportSql()
 assetDetail_report_sql = AssetDetailReportSql()
-income_calulation_report_sql = IncomeCalculationReportSql()
+income_calculation_report_sql = IncomeCalculationReportSql()
 insurance_profit_calculation_sql = InsuranceProfitCalculationSql();
 flowRate_report_sql = FlowRateReportSql()
 cashTest_report_sql = CashTestReportSql()

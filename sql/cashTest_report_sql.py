@@ -1,4 +1,3 @@
-import total as total
 
 from variables import local_token
 from variables.db_connection import db

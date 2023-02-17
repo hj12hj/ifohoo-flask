@@ -2,6 +2,7 @@
   "config": {
     "rowKey": "rowKey"
   },
+  "pagination": false,
   "columns": [
     {
       "title": "发生日期",
@@ -33,26 +34,38 @@
     {
       "title": "加权占用额",
       "dataIndex": "weightedOccupancyAmt",
-      "fohooDataTypeValue": "0",
-      "fohooCharWidth": 24
+      "fohooDataTypeValue":"1",
+      "fohooFormatTypeValue": "1",
+      "fohooZeroShowTypeValue":"2",
+      "fohooDecWidth": 2,
+      "fohooCharWidth":14
     },
     {
       "title": "收益额",
       "dataIndex": "incomeAmt",
-      "fohooDataTypeValue": "0",
-      "fohooCharWidth": 24
+      "fohooDataTypeValue":"1",
+      "fohooFormatTypeValue": "1",
+      "fohooZeroShowTypeValue":"2",
+      "fohooDecWidth": 2,
+      "fohooCharWidth":14
     },
     {
       "title": "利率",
       "dataIndex": "interestRate",
-      "fohooDataTypeValue": "0",
-      "fohooCharWidth": 24
+      "fohooDataTypeValue":"1",
+      "fohooFormatTypeValue": "1",
+      "fohooZeroShowTypeValue":"2",
+      "fohooDecWidth": 2,
+      "fohooCharWidth":14
     },
     {
       "title": "规模占比",
       "dataIndex": "scaleRatio",
-      "fohooDataTypeValue": "0",
-      "fohooCharWidth": 24
+      "fohooDataTypeValue":"1",
+      "fohooFormatTypeValue": "1",
+      "fohooZeroShowTypeValue":"2",
+      "fohooDecWidth": 2,
+      "fohooCharWidth":14
     }
   ],
   "url": "/app-report/incomeCalculationReport"
