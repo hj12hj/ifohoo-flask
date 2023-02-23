@@ -38,3 +38,13 @@ centos gcc 升级成8
 https://blog.csdn.net/weixin_43876186/article/details/120953199
 
 打包前需要包用到的依赖都依赖了，不然打包后会报错 动态依赖项目 要在 app.py中先依赖了
+
+
+cd /opt/oracle/
+unzip instantclient-basic-linux.x64-21.9.0.0.0dbru.zip 
+cd instantclient
+ls
+cd instantclient_21_9/
+ls
+sh -c "echo /opt/oracle/instantclient_21_9 > /etc/ld.so.conf.d/oracle-instantclient.conf"  
+ldconfig 

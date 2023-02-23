@@ -10,8 +10,8 @@ from registry import port
 from variables import local_token
 from variables.local_connetion import create_local_connect
 
-# import pymysql
-# import cx_Oracle
+import pymysql
+import cx_Oracle
 # import dmPython
 
 
@@ -28,7 +28,10 @@ def port_is_used(port):
 
 @app.before_request
 def before_request():
-    # 验证token
+    if request.url.endswith("/actuator/health"):
+        return
+
+        # 验证token
     token = request.headers.get("token")
     local_token.token = request.headers.get("token")
     if token is None:
@@ -39,7 +42,6 @@ def before_request():
     else:
         # 存储token信息
         local_token.token_info = json.loads(info)
-
 
 
 # 注册蓝图列表

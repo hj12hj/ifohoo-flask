@@ -25,19 +25,12 @@ def find_latest_config(**kwargs):
     return ReturnMessage(data=historyService.find_latest_history(query_data=kwargs.get("params")))
 
 
-# 测试 table数据
-@config_history.route("/tableTest/list", methods=["GET"])
+# 健康检测
+@config_history.route("/actuator/health", methods=["GET"])
 @handle_web_request
-@handle_web_result
 def tableTest(**kwargs):
     data = {
-        "list": [{
-            "corpName": "xxx企业",
-            "corpCategoryStdName": "xxx分类标准",
-            "corpCategoryCode": "xxxxx",
-            "corpCategoryName": "xxxxx",
-        }],
-        "totle": 10
+        "status": "UP"
     }
 
-    return ReturnMessage(data=data)
+    return data
